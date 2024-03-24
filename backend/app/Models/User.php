@@ -8,6 +8,11 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
+use App\Models\Article;
+use App\Models\ArticleComment;
+use App\Models\UserNotification;
+use App\Models\UserVerification;
+use App\Models\Role;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
@@ -19,7 +24,19 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var string[]
      */
     protected $fillable = [
-        'name', 'email',
+        'image',
+        'first_name',
+        'last_name',
+        'gender',
+        'country',
+        'address',
+        'about_me',
+        'username',
+        'email',
+        'password',
+        'phone',
+        'status',
+        'remember_token'
     ];
 
     /**
@@ -29,5 +46,26 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
     protected $hidden = [
         'password',
+        'remember_token'
     ];
+
+    public function Article() {
+        return $this->hasMany(Article::class);
+    }
+
+    public function Comment() {
+        return $this->hasMany(ArticleComment::class);
+    }
+
+    public function Notifications() {
+        return $this->hasMany(UserNotification::class);
+    }
+
+    public function Verification() {
+        return $this->hasMany(UserVerification::class);
+    }
+
+    public function Roles() {
+        return $this->belongsToMany(Role::class, "users_roles");
+    }
 }
