@@ -16,7 +16,7 @@ class Article extends Model
         "user_id",
         "image",
         "title",
-        "slug",
+        "description",
         "content",
         "status",
         "sort"

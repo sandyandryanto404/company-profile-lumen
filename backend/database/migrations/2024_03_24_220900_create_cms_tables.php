@@ -68,9 +68,9 @@ return new class extends Migration
             $table->text('image')->nullable();
             $table->string('title', 191)->unique();
             $table->string('slug', 191)->unique();
+			$table->text('description')->nullable();
             $table->longText('content');
             $table->tinyInteger('status')->default(1)->index();
-            $table->Integer('sort')->default(0)->index();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('no action')->onUpdate('no action');
             $table->engine = 'InnoDB';
