@@ -44,6 +44,7 @@ return new class extends Migration
             $table->string('email', 64)->index();
             $table->string('phone', 64)->index();
             $table->text('address')->nullable();
+            $table->Integer('sort')->default(0)->index();
             $table->tinyInteger('status')->default(1)->index();
             $table->timestamps();
             $table->engine = 'InnoDB';

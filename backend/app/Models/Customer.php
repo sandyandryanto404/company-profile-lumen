@@ -15,6 +15,7 @@ class Customer extends Model
         "email",
         "phone",
         "address",
+        "sort",
         "status"
     ];
 
