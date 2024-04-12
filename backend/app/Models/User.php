@@ -40,7 +40,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'last_name',
         'gender',
         'country',
-        'postal_code',
         'address',
         'about_me',
         'email',
