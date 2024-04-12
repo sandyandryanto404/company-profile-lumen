@@ -43,15 +43,16 @@ class Testimonial extends Model
         {
             foreach($customers as $index => $customer)
             {
+				$sort = $index + 1;
                 $faker = Faker::create();
                 self::create([
                     "customer_id"=> $customer->id,
-                    "image"=> "testimonial.jpg",
+                    "image"=> "testimonial".$sort.".jpg",
                     "name"=> $faker->name,
                     "position"=> $faker->jobTitle,
                     "quote"=> $faker->text,
                     "status"=> 1,
-                    "sort"=> $index
+                    "sort"=> $sort
                 ]);
             }
         }
