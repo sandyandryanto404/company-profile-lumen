@@ -79,7 +79,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
                 $gender = rand(1,2);
                 $first_name = $gender == 1 ? $faker->firstNameMale : $faker->firstNameFemale;
                 $user = new self;
-                $user->image = $gender == 1 ? "user-male.jpg" : "user-female.jpg";
                 $user->first_name = $first_name;
                 $user->last_name = $faker->lastName;
                 $user->gender = $gender == 1 ? "M" : "F";
