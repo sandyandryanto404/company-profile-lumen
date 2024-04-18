@@ -1,8 +1,16 @@
 body,
 html {
     height: 100%;
-    min-height: 75rem;
+    min-height: 100%;
     padding-top: 1.7rem;
+}
+
+html {
+    position: relative;
+}
+
+body {
+    margin-bottom: 60px;
 }
 
 .feature {
@@ -27,4 +35,8 @@ html {
     min-height: 20rem;
     width: 100%;
     border-radius: 0.5rem;
+}
+
+.auth-icon {
+    font-size: 7rem;
 }

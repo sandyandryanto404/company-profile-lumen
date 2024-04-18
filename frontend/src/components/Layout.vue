@@ -7,7 +7,7 @@
         <router-view />
     </main>
     <!-- Footer-->
-    <footer class="bg-primary py-4 mt-auto">
+    <footer class="bg-primary py-4 mt-auto footer">
         <Footer></Footer>
     </footer>
 </template>
