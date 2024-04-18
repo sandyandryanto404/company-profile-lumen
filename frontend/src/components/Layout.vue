@@ -1,13 +1,13 @@
 <template>
     <main class="flex-shrink-0">
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
             <Navigation></Navigation>
         </nav>
         <router-view />
     </main>
     <!-- Footer-->
-    <footer class="bg-dark py-4 mt-auto">
+    <footer class="bg-primary py-4 mt-auto">
         <Footer></Footer>
     </footer>
 </template>
