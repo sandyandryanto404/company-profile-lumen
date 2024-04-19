@@ -1,8 +1,8 @@
 <template>
     <div class="container py-5">
         <div class="row h-100 justify-content-center align-items-center mt-5">
-            <div class="col-md-7" v-if="loading">
-                <Shimmer class="content-loader" />
+            <div class="col-md-12" v-if="loadingContent">
+                <Shimmer class="content-loader-full" />
             </div>
             <div class="col-md-7" v-else>
                 <div class="card">
@@ -86,14 +86,21 @@ export default {
     },
     mounted() {
         document.title = 'Manage Profile | ' + process.env.VUE_APP_TITLE
+        let auth = this.auth
         setTimeout(() => {
-            this.countries = country.names().sort()
-            this.loading = false
+            if(auth){
+                this.loadingContent = false
+                this.countries = country.names().sort()
+            }else{
+                this.$router.push('/') 
+            }
         }, 3000)
     },
     data(){
         return {
-            loading: true,
+            loadingContent: true,
+            loadingSubmit: false,
+            auth: localStorage.getItem("token") !== null,
             countries: [],
             user: {},
             genders: [

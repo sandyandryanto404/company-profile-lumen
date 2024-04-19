@@ -1,7 +1,10 @@
 <template>
     <div class="container py-5">
         <div class="row h-100 justify-content-center align-items-center mt-5">
-            <div class="col-md-4">
+            <div class="col-md-12" v-if="loadingContent">
+                <Shimmer class="content-loader-full" />
+            </div>
+            <div class="col-md-4" v-else>
                 <div class="card">
                     <div class="card-header text-center bg-primary text-white">
                         <h4 class="p-2">
@@ -55,9 +58,28 @@
     </div>
 </template>
 <script>
+    import Shimmer from "vue3-loading-shimmer"
     export default {
+        components:{
+            Shimmer
+        },
         mounted() {
             document.title = 'Sign In | ' + process.env.VUE_APP_TITLE
+            let auth = this.auth
+            setTimeout(() => {
+                if(!auth){
+                    this.loadingContent = false
+                }else{
+                    this.$router.push('/') 
+                }
+            }, 2000)
         },
+        data(){
+            return {
+                loadingContent: true,
+                loadingSubmit: false,
+                auth: localStorage.getItem("token") !== null
+            }
+        }
     }
 </script>

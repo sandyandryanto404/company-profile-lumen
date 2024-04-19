@@ -90,7 +90,7 @@
             return {
                 active: localStorage.getItem('active-menu') || 'home',
                 site_title: process.env.VUE_APP_TITLE,
-                auth: true
+                auth: localStorage.getItem('token') && localStorage.getItem("token") !== null
             }
         }
     }

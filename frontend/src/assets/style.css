@@ -37,6 +37,12 @@ body {
     border-radius: 0.5rem;
 }
 
+.content-loader-full {
+    min-height: 40rem;
+    width: 100%;
+    border-radius: 0.5rem;
+}
+
 .content-mid {
     min-height: 0.5rem;
     width: 100%;
