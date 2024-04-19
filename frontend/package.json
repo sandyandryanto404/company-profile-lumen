@@ -12,6 +12,9 @@
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "core-js": "^3.8.3",
+    "country-list-js": "^3.1.8",
+    "floating-vue": "^5.2.2",
+    "vee-validate": "^4.12.6",
     "vue": "^3.2.13",
     "vue-router": "^4.3.0",
     "vue3-loading-shimmer": "^1.0.0"

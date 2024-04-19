@@ -37,6 +37,15 @@ body {
     border-radius: 0.5rem;
 }
 
+.content-mid {
+    min-height: 0.5rem;
+    width: 100%;
+}
+
 .auth-icon {
     font-size: 7rem;
+}
+
+.auth-section{
+    background-color: #f8f9fa !important;
 }
