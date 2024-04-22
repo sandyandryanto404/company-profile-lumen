@@ -3,7 +3,10 @@
     <section class="py-5">
         <div class="container px-5">
             <!-- Contact form-->
-            <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
+            <div class="py-5 px-4 px-md-5 mb-5" v-if="loadingContent">
+                <Shimmer :style="{'min-height': '768px', 'border-radius': '1%'}" />
+            </div>
+            <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5" v-else>
                 <div class="text-center mb-5">
                     <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-envelope"></i>
                     </div>

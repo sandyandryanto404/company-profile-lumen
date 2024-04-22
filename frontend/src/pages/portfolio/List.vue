@@ -6,7 +6,41 @@
                 <h1 class="fw-bolder">Our Work</h1>
                 <p class="lead fw-normal text-muted mb-0">Company portfolio</p>
             </div>
-            <div class="row gx-5">
+            <div class="row gx-5" v-if="loading">
+                 <div class="col-lg-6">
+                    <div class="position-relative mb-5">
+                        <Shimmer class="mt-1 card-img-top" :style="{'min-height': '400px', 'border-radius': '5px'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem', 'border-radius': '5px'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem', 'border-radius': '5px'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem', 'border-radius': '5px'}" />
+                    </div>
+                </div>
+                 <div class="col-lg-6">
+                    <div class="position-relative mb-5">
+                        <Shimmer class="mt-1 card-img-top" :style="{'min-height': '400px', 'border-radius': '5px'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem', 'border-radius': '5px'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem', 'border-radius': '5px'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem', 'border-radius': '5px'}" />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="position-relative mb-5 mb-lg-0">
+                        <Shimmer class="mt-1 card-img-top" :style="{'min-height': '400px', 'border-radius': '5px'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem', 'border-radius': '5px'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem', 'border-radius': '5px'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem', 'border-radius': '5px'}" />
+                    </div>
+                </div>
+                 <div class="col-lg-6">
+                    <div class="position-relative">
+                        <Shimmer class="mt-1 card-img-top" :style="{'min-height': '400px', 'border-radius': '5px'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem', 'border-radius': '5px'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem', 'border-radius': '5px'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem', 'border-radius': '5px'}" />
+                    </div>
+                </div>
+            </div>
+            <div class="row gx-5" v-else>
                 <div class="col-lg-6">
                     <div class="position-relative mb-5">
                         <img class="img-fluid rounded-3 mb-3" src="https://dummyimage.com/600x400/343a40/6c757d"
@@ -54,9 +88,21 @@
     </section>
 </template>
 <script>
+    import Shimmer from "vue3-loading-shimmer";
     export default {
+        components:{
+            Shimmer
+        },
         mounted() {
             document.title = 'Portfolio | ' + process.env.VUE_APP_TITLE
+            setTimeout(() => {
+                this.loading = false
+            }, 3000)
+        },
+        data() {
+            return {
+                loading: true
+            }
         }
     }
 </script>
