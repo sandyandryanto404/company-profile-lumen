@@ -4,9 +4,15 @@
         <div class="container px-5 my-5">
             <div class="row gx-5">
                 <div class="col-lg-3">
-                    <div class="d-flex align-items-center mt-lg-5 mb-4">
-                        <img class="img-fluid rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-                            alt="..." />
+                    <div v-if="loadingContent">
+                        <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem', 'border-radius': '5px'}" />
+                        <Shimmer class="mt-2" :style="{'min-height': '0.7rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                    </div>
+                    <div class="d-flex align-items-center mt-lg-5 mb-4" v-else>
+                        <img class="img-fluid rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
                         <div class="ms-3">
                             <div class="fw-bold">Valerie Luna</div>
                             <div class="text-muted">News, Business</div>
@@ -15,7 +21,16 @@
                 </div>
                 <div class="col-lg-9">
                     <!-- Post content-->
-                    <article>
+                    <article v-if="loadingContent">
+                        <div class="mb-5 mt-1">
+                            <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem', 'border-radius': '5px'}" />
+                            <Shimmer class="mt-2" :style="{'min-height': '0.7rem', 'border-radius': '5px'}" />
+                            <Shimmer class="mt-1" :style="{'min-height': '0.7rem', 'border-radius': '5px'}" />
+                            <Shimmer class="mt-1" :style="{'min-height': '0.7rem', 'border-radius': '5px'}" />
+                            <Shimmer class="mt-1" :style="{'min-height': '0.7rem', 'border-radius': '5px'}" />
+                        </div>
+                    </article>
+                    <article v-else>
                         <!-- Post header-->
                         <header class="mb-4">
                             <!-- Post title-->
@@ -53,7 +68,10 @@
                     </article>
                     <!-- Comments section-->
                     <section>
-                        <div class="card bg-light">
+                        <div class="card" v-if="loadingComment">
+                             <Shimmer :style="{'min-height': '25rem', 'border-radius': '5px'}" />
+                        </div>
+                        <div class="card bg-light" v-else>
                             <div class="card-body">
                                 <!-- Comment form-->
                                 <form class="mb-4"><textarea class="form-control" rows="3"
@@ -110,9 +128,23 @@
     </section>
 </template>
 <script>
+    import Shimmer from "vue3-loading-shimmer";
     export default {
+        components:{
+            Shimmer
+        },
         mounted() {
             document.title = 'Article Details | ' + process.env.VUE_APP_TITLE
+            setTimeout(() => {
+                this.loadingContent = false
+                this.loadingComment = false
+            }, 3000)
+        },
+        data() {
+            return {
+                loadingContent: true,
+                loadingComment: true
+            }
         }
     }
 </script>

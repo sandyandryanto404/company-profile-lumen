@@ -29,7 +29,7 @@
             <div class="row gx-5 align-items-center">
                <template v-if="loading">
                     <div class="col-lg-6">
-                        <Shimmer class="mt-1" :style="{'min-height': '400px'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '400px', 'border-radius': '5px'}" />
                     </div>
                     <div class="col-lg-6">
                         <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
@@ -61,7 +61,7 @@
             <div class="row gx-5 align-items-center">
                 <template v-if="loading">
                     <div class="col-lg-6 order-first order-lg-last">
-                        <Shimmer class="mt-1" :style="{'min-height': '400px'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '400px', 'border-radius': '5px'}" />
                     </div>
                     <div class="col-lg-6">
                         <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />

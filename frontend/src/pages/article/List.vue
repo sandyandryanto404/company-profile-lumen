@@ -15,10 +15,10 @@
                                 <div class="h2 fw-bolder">Article heading goes here</div>
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique delectus ab
                                     doloremque, qui doloribus ea officiis...</p>
-                                <a class="stretched-link text-decoration-none" href="#!">
+                                <router-link :to="{ name: 'articleDetail', params: { slug: 'hello-world' }}"   class="stretched-link text-decoration-none">
                                     Read more
                                     <i class="bi bi-arrow-right"></i>
-                                </a>
+                                </router-link>
                             </div>
                         </div>
                         <div class="col-lg-6 col-xl-7">
