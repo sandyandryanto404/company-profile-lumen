@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
                     <template v-if="loading">
-                        <Shimmer class="content-loader" />
+                        <Shimmer class="mt-1" :style="{'min-height': '400px', 'width': '600px', 'border-radius': '2%'}" />
                     </template>
                     <template v-else>
                         <img class="img-fluid rounded-3 my-5" src="https://dummyimage.com/600x400/343a40/6c757d"
@@ -37,7 +37,56 @@
                 </div>
                 <div class="col-lg-8">
                     <template v-if="loading">
-                        <Shimmer class="content-loader" />
+                        <div class="row gx-5 row-cols-1 row-cols-md-2">
+                            <div class="col mb-5 h-100">
+                                <Shimmer class="mt-1 mb-2" :style="{'min-height': '4rem', 'width': '20%', 'border-radius': '10%'}" />
+                                <h2 class="h5">
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem', 'width': '50%'}" />
+                                </h2>
+                                <p class="mb-0">
+                                    <Shimmer class="" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                </p>
+                            </div>
+                            <div class="col mb-5 h-100">
+                                <Shimmer class="mt-1 mb-2" :style="{'min-height': '4rem', 'width': '20%', 'border-radius': '10%'}" />
+                                <h2 class="h5">
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem', 'width': '50%'}" />
+                                </h2>
+                                <p class="mb-0">
+                                    <Shimmer class="" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                </p>
+                            </div>
+                            <div class="col mb-5 h-100">
+                                <Shimmer class="mt-1 mb-2" :style="{'min-height': '4rem', 'width': '20%', 'border-radius': '10%'}" />
+                                <h2 class="h5">
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem', 'width': '50%'}" />
+                                </h2>
+                                <p class="mb-0">
+                                    <Shimmer class="" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                </p>
+                            </div>
+                            <div class="col mb-5 h-100">
+                                <Shimmer class="mt-1 mb-2" :style="{'min-height': '4rem', 'width': '20%', 'border-radius': '10%'}" />
+                                <h2 class="h5">
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem', 'width': '50%'}" />
+                                </h2>
+                                <p class="mb-0">
+                                    <Shimmer class="" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                </p>
+                            </div>
+                        </div>
                     </template>
                     <template v-else>
                         <div class="row gx-5 row-cols-1 row-cols-md-2">
@@ -81,7 +130,11 @@
             <div class="row gx-5 justify-content-center">
                 <div class="col-lg-10 col-xl-7">
                     <template v-if="loading">
-                        <Shimmer class="content-loader" />
+                        <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
                     </template>
                     <template v-else>
                         <div class="text-center">
@@ -117,7 +170,54 @@
             </div>
             <div class="row gx-5">
                 <template v-if="loading">
-                    <Shimmer class="content-loader" />
+                    <div class="col-lg-4 mb-5">
+                        <div class="card h-100 shadow border-0">
+                            <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem'}" />
+                            <div class="card-body p-4">
+                                <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                <a class="text-decoration-none link-dark stretched-link" href="#!">
+                                    <h5 class="card-title mb-3">
+                                        <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    </h5>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-5">
+                        <div class="card h-100 shadow border-0">
+                            <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem'}" />
+                            <div class="card-body p-4">
+                                <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                <a class="text-decoration-none link-dark stretched-link" href="#!">
+                                    <h5 class="card-title mb-3">
+                                        <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    </h5>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-5">
+                        <div class="card h-100 shadow border-0">
+                            <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem'}" />
+                            <div class="card-body p-4">
+                                <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                <a class="text-decoration-none link-dark stretched-link" href="#!">
+                                    <h5 class="card-title mb-3">
+                                        <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    </h5>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </template>
                 <template v-else>
                     <div class="col-lg-4 mb-5">

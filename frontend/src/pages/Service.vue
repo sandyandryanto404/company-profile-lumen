@@ -2,7 +2,14 @@
     <header class="py-5">
         <div class="container px-5">
             <div class="row justify-content-center">
-                <div class="col-lg-8 col-xxl-6">
+                <div class="col-lg-8 col-xxl-6" v-if="loading">
+                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                </div>
+                <div class="col-lg-8 col-xxl-6" v-else>
                     <div class="text-center my-5">
                         <h1 class="fw-bolder mb-3">Our mission is to make building websites easier for everyone.</h1>
                         <p class="lead fw-normal text-muted mb-4">Start Bootstrap was built on the idea that quality,
@@ -23,7 +30,56 @@
                 </div>
                 <div class="col-lg-8">
                     <template v-if="loading">
-                        <Shimmer class="content-loader" />
+                        <div class="row gx-5 row-cols-1 row-cols-md-2">
+                            <div class="col mb-5 h-100">
+                                <Shimmer class="mt-1 mb-2" :style="{'min-height': '4rem', 'width': '20%', 'border-radius': '10%'}" />
+                                <h2 class="h5">
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem', 'width': '50%'}" />
+                                </h2>
+                                <p class="mb-0">
+                                    <Shimmer class="" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                </p>
+                            </div>
+                            <div class="col mb-5 h-100">
+                                <Shimmer class="mt-1 mb-2" :style="{'min-height': '4rem', 'width': '20%', 'border-radius': '10%'}" />
+                                <h2 class="h5">
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem', 'width': '50%'}" />
+                                </h2>
+                                <p class="mb-0">
+                                    <Shimmer class="" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                </p>
+                            </div>
+                            <div class="col mb-5 h-100">
+                                <Shimmer class="mt-1 mb-2" :style="{'min-height': '4rem', 'width': '20%', 'border-radius': '10%'}" />
+                                <h2 class="h5">
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem', 'width': '50%'}" />
+                                </h2>
+                                <p class="mb-0">
+                                    <Shimmer class="" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                </p>
+                            </div>
+                            <div class="col mb-5 h-100">
+                                <Shimmer class="mt-1 mb-2" :style="{'min-height': '4rem', 'width': '20%', 'border-radius': '10%'}" />
+                                <h2 class="h5">
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem', 'width': '50%'}" />
+                                </h2>
+                                <p class="mb-0">
+                                    <Shimmer class="" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                    <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
+                                </p>
+                            </div>
+                        </div>
                     </template>
                     <template v-else>
                         <div class="row gx-5 row-cols-1 row-cols-md-2">
@@ -68,38 +124,78 @@
                 <p class="lead fw-normal text-muted mb-5">Dedicated to quality and your success</p>
             </div>
             <div class="row gx-5 row-cols-1 row-cols-sm-2 row-cols-xl-4 justify-content-center">
-                <div class="col mb-5 mb-5 mb-xl-0">
-                    <div class="text-center">
-                        <img class="img-fluid rounded-circle mb-4 px-4"
-                            src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
-                        <h5 class="fw-bolder">Ibbie Eckart</h5>
-                        <div class="fst-italic text-muted">Founder &amp; CEO</div>
+                <template v-if="loading">
+                    <div class="col mb-5 mb-5 mb-xl-0">
+                        <div class="text-center">
+                            <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem', 'border-radius': '5px'}" />
+                            <Shimmer class="mt-2" :style="{'min-height': '0.7rem'}" />
+                            <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                            <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                            <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                        </div>
                     </div>
-                </div>
-                <div class="col mb-5 mb-5 mb-xl-0">
-                    <div class="text-center">
-                        <img class="img-fluid rounded-circle mb-4 px-4"
-                            src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
-                        <h5 class="fw-bolder">Arden Vasek</h5>
-                        <div class="fst-italic text-muted">CFO</div>
+                    <div class="col mb-5 mb-5 mb-xl-0">
+                        <div class="text-center">
+                            <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem', 'border-radius': '5px'}" />
+                            <Shimmer class="mt-2" :style="{'min-height': '0.7rem'}" />
+                            <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                            <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                            <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                        </div>
                     </div>
-                </div>
-                <div class="col mb-5 mb-5 mb-sm-0">
-                    <div class="text-center">
-                        <img class="img-fluid rounded-circle mb-4 px-4"
-                            src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
-                        <h5 class="fw-bolder">Toribio Nerthus</h5>
-                        <div class="fst-italic text-muted">Operations Manager</div>
+                    <div class="col mb-5 mb-5 mb-xl-0">
+                        <div class="text-center">
+                            <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem', 'border-radius': '5px'}" />
+                            <Shimmer class="mt-2" :style="{'min-height': '0.7rem'}" />
+                            <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                            <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                            <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                        </div>
                     </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="text-center">
-                        <img class="img-fluid rounded-circle mb-4 px-4"
-                            src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
-                        <h5 class="fw-bolder">Malvina Cilla</h5>
-                        <div class="fst-italic text-muted">CTO</div>
+                    <div class="col mb-5 mb-5 mb-xl-0">
+                        <div class="text-center">
+                            <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem', 'border-radius': '5px'}" />
+                            <Shimmer class="mt-2" :style="{'min-height': '0.7rem'}" />
+                            <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                            <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                            <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                        </div>
                     </div>
-                </div>
+                </template>
+                <template v-else>
+                    <div class="col mb-5 mb-5 mb-xl-0">
+                        <div class="text-center">
+                            <img class="img-fluid rounded-circle mb-4 px-4"
+                                src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
+                            <h5 class="fw-bolder">Ibbie Eckart</h5>
+                            <div class="fst-italic text-muted">Founder &amp; CEO</div>
+                        </div>
+                    </div>
+                    <div class="col mb-5 mb-5 mb-xl-0">
+                        <div class="text-center">
+                            <img class="img-fluid rounded-circle mb-4 px-4"
+                                src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
+                            <h5 class="fw-bolder">Arden Vasek</h5>
+                            <div class="fst-italic text-muted">CFO</div>
+                        </div>
+                    </div>
+                    <div class="col mb-5 mb-5 mb-sm-0">
+                        <div class="text-center">
+                            <img class="img-fluid rounded-circle mb-4 px-4"
+                                src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
+                            <h5 class="fw-bolder">Toribio Nerthus</h5>
+                            <div class="fst-italic text-muted">Operations Manager</div>
+                        </div>
+                    </div>
+                    <div class="col mb-5">
+                        <div class="text-center">
+                            <img class="img-fluid rounded-circle mb-4 px-4"
+                                src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
+                            <h5 class="fw-bolder">Malvina Cilla</h5>
+                            <div class="fst-italic text-muted">CTO</div>
+                        </div>
+                    </div>
+                </template>
             </div>
         </div>
     </section>
@@ -117,93 +213,142 @@
 
         <div class="container overflow-hidden">
             <div class="row gy-4 gy-md-0 gx-xxl-5">
-                <div class="col-12 col-md-4">
-                    <div class="card border-0 border-bottom border-primary shadow-sm">
-                        <div class="card-body p-4 p-xxl-5">
-                            <figure>
-                                <img class="img-fluid rounded rounded-circle mb-4 border border-5" loading="lazy"
-                                    src="https://dummyimage.com/150x150/ced4da/6c757d" alt="">
-                                <figcaption>
-                                    <div class="mb-3 mt-2">
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                    </div>
-                                    <blockquote class="bsb-blockquote-icon mb-4">Nam ultricies, ex lacinia dapibus
-                                        faucibus, sapien ipsum euismod massa, at aliquet erat turpis quis diam. Class
-                                        aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                        himenaeos.</blockquote>
-                                    <h4 class="mb-2">Luna John</h4>
-                                    <h5 class="fs-6 text-secondary mb-0">UX Designer</h5>
-                                </figcaption>
-                            </figure>
+                <template v-if="loading">
+                    <div class="col-12 col-md-4">
+                        <div class="card border-0 border-bottom border-primary shadow-sm">
+                            <div class="card-body p-4 p-xxl-5">
+                                <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem', 'border-radius': '5px'}" />
+                                <Shimmer class="mt-2" :style="{'min-height': '0.7rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div class="card border-0 border-bottom border-primary shadow-sm">
-                        <div class="card-body p-4 p-xxl-5">
-                            <figure>
-                                <img class="img-fluid rounded rounded-circle mb-4 border border-5" loading="lazy"
-                                    src="https://dummyimage.com/150x150/ced4da/6c757d" alt="">
-                                <figcaption>
-                                     <div class="mb-3 mt-2">
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                    </div>
-                                    <blockquote class="bsb-blockquote-icon mb-4">Nam ultricies, ex lacinia dapibus
-                                        faucibus, sapien ipsum euismod massa, at aliquet erat turpis quis diam. Class
-                                        aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                        himenaeos.</blockquote>
-                                    <h4 class="mb-2">Mark Smith</h4>
-                                    <h5 class="fs-6 text-secondary mb-0">Marketing Specialist</h5>
-                                </figcaption>
-                            </figure>
+                    <div class="col-12 col-md-4">
+                        <div class="card border-0 border-bottom border-primary shadow-sm">
+                            <div class="card-body p-4 p-xxl-5">
+                                <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem', 'border-radius': '5px'}" />
+                                <Shimmer class="mt-2" :style="{'min-height': '0.7rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div class="card border-0 border-bottom border-primary shadow-sm">
-                        <div class="card-body p-4 p-xxl-5">
-                            <figure>
-                                <img class="img-fluid rounded rounded-circle mb-4 border border-5" loading="lazy"
-                                    src="https://dummyimage.com/150x150/ced4da/6c757d" alt="">
-                                <figcaption>
-                                     <div class="mb-3 mt-2">
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                        <i class="bi bi-star text-warning me-2"></i>
-                                    </div>
-                                    <blockquote class="bsb-blockquote-icon mb-4">Nam ultricies, ex lacinia dapibus
-                                        faucibus, sapien ipsum euismod massa, at aliquet erat turpis quis diam. Class
-                                        aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                        himenaeos.</blockquote>
-                                    <h4 class="mb-2">Luke Reeves</h4>
-                                    <h5 class="fs-6 text-secondary mb-0">Sales Manager</h5>
-                                </figcaption>
-                            </figure>
+                    <div class="col-12 col-md-4">
+                        <div class="card border-0 border-bottom border-primary shadow-sm">
+                            <div class="card-body p-4 p-xxl-5">
+                                <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem', 'border-radius': '5px'}" />
+                                <Shimmer class="mt-2" :style="{'min-height': '0.7rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                                <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                            </div>
                         </div>
                     </div>
-                </div>
+                </template>
+                <template v-else>
+                    <div class="col-12 col-md-4">
+                        <div class="card border-0 border-bottom border-primary shadow-sm">
+                            <div class="card-body p-4 p-xxl-5">
+                                <figure>
+                                    <img class="img-fluid rounded rounded-circle mb-4 border border-5" loading="lazy"
+                                        src="https://dummyimage.com/150x150/ced4da/6c757d" alt="">
+                                    <figcaption>
+                                        <div class="mb-3 mt-2">
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                        </div>
+                                        <blockquote class="bsb-blockquote-icon mb-4">Nam ultricies, ex lacinia dapibus
+                                            faucibus, sapien ipsum euismod massa, at aliquet erat turpis quis diam. Class
+                                            aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                                            himenaeos.</blockquote>
+                                        <h4 class="mb-2">Luna John</h4>
+                                        <h5 class="fs-6 text-secondary mb-0">UX Designer</h5>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="card border-0 border-bottom border-primary shadow-sm">
+                            <div class="card-body p-4 p-xxl-5">
+                                <figure>
+                                    <img class="img-fluid rounded rounded-circle mb-4 border border-5" loading="lazy"
+                                        src="https://dummyimage.com/150x150/ced4da/6c757d" alt="">
+                                    <figcaption>
+                                        <div class="mb-3 mt-2">
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                        </div>
+                                        <blockquote class="bsb-blockquote-icon mb-4">Nam ultricies, ex lacinia dapibus
+                                            faucibus, sapien ipsum euismod massa, at aliquet erat turpis quis diam. Class
+                                            aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                                            himenaeos.</blockquote>
+                                        <h4 class="mb-2">Mark Smith</h4>
+                                        <h5 class="fs-6 text-secondary mb-0">Marketing Specialist</h5>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="card border-0 border-bottom border-primary shadow-sm">
+                            <div class="card-body p-4 p-xxl-5">
+                                <figure>
+                                    <img class="img-fluid rounded rounded-circle mb-4 border border-5" loading="lazy"
+                                        src="https://dummyimage.com/150x150/ced4da/6c757d" alt="">
+                                    <figcaption>
+                                        <div class="mb-3 mt-2">
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                            <i class="bi bi-star text-warning me-2"></i>
+                                        </div>
+                                        <blockquote class="bsb-blockquote-icon mb-4">Nam ultricies, ex lacinia dapibus
+                                            faucibus, sapien ipsum euismod massa, at aliquet erat turpis quis diam. Class
+                                            aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                                            himenaeos.</blockquote>
+                                        <h4 class="mb-2">Luke Reeves</h4>
+                                        <h5 class="fs-6 text-secondary mb-0">Sales Manager</h5>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </template>
             </div>
         </div>
     </section>
 
 </template>
 <script>
+    import Shimmer from "vue3-loading-shimmer";
     export default {
+        components:{
+            Shimmer
+        },
         mounted() {
             document.title = 'Service | ' + process.env.VUE_APP_TITLE
+            setTimeout(() => {
+                this.loading = false
+            }, 3000)
+        },
+        data() {
+            return {
+                loading: true
+            }
         }
     }
 </script>

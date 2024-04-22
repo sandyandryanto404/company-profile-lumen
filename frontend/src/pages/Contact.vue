@@ -82,38 +82,82 @@
             </div>
             <!-- Contact cards-->
             <div class="row gx-5 row-cols-2 row-cols-lg-4 py-5">
-                <div class="col">
-                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
-                            class="bi bi-chat-dots"></i></div>
-                    <div class="h5 mb-2">Chat with us</div>
-                    <p class="text-muted mb-0">Chat live with one of our support specialists.</p>
-                </div>
-                <div class="col">
-                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-people"></i>
+                <template v-if="loadingContent">
+                    <div class="col">
+                        <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem', 'border-radius': '5px'}" />
+                        <Shimmer class="mt-2" :style="{'min-height': '0.7rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
                     </div>
-                    <div class="h5">Ask the community</div>
-                    <p class="text-muted mb-0">Explore our community forums and communicate with other users.</p>
-                </div>
-                <div class="col">
-                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
-                            class="bi bi-question-circle"></i></div>
-                    <div class="h5">Support center</div>
-                    <p class="text-muted mb-0">Browse FAQ's and support articles to find solutions.</p>
-                </div>
-                <div class="col">
-                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
-                            class="bi bi-telephone"></i></div>
-                    <div class="h5">Call us</div>
-                    <p class="text-muted mb-0">Call us during normal business hours at (555) 892-9403.</p>
-                </div>
+                    <div class="col">
+                        <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem', 'border-radius': '5px'}" />
+                        <Shimmer class="mt-2" :style="{'min-height': '0.7rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                    </div>
+                    <div class="col">
+                        <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem', 'border-radius': '5px'}" />
+                        <Shimmer class="mt-2" :style="{'min-height': '0.7rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                    </div>
+                    <div class="col">
+                        <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem', 'border-radius': '5px'}" />
+                        <Shimmer class="mt-2" :style="{'min-height': '0.7rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                        <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="col">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
+                                class="bi bi-chat-dots"></i></div>
+                        <div class="h5 mb-2">Chat with us</div>
+                        <p class="text-muted mb-0">Chat live with one of our support specialists.</p>
+                    </div>
+                    <div class="col">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-people"></i>
+                        </div>
+                        <div class="h5">Ask the community</div>
+                        <p class="text-muted mb-0">Explore our community forums and communicate with other users.</p>
+                    </div>
+                    <div class="col">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
+                                class="bi bi-question-circle"></i></div>
+                        <div class="h5">Support center</div>
+                        <p class="text-muted mb-0">Browse FAQ's and support articles to find solutions.</p>
+                    </div>
+                    <div class="col">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
+                                class="bi bi-telephone"></i></div>
+                        <div class="h5">Call us</div>
+                        <p class="text-muted mb-0">Call us during normal business hours at (555) 892-9403.</p>
+                    </div>
+                </template>
             </div>
         </div>
     </section>
 </template>
 <script>
+    import Shimmer from "vue3-loading-shimmer";
     export default {
+        components:{
+            Shimmer
+        },
         mounted() {
-            document.title = 'Contact | ' + process.env.VUE_APP_TITLE
+            document.title = 'Service | ' + process.env.VUE_APP_TITLE
+            setTimeout(() => {
+                this.loadingContent = false
+            }, 3000)
+        },
+        data() {
+            return {
+                loadingContent: true
+            }
         }
     }
 </script>

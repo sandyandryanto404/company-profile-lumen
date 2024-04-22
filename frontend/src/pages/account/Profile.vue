@@ -1,8 +1,10 @@
 <template>
     <div class="container py-5">
         <div class="row h-100 justify-content-center align-items-center mt-5">
-            <div class="col-md-12" v-if="loadingContent">
-                <Shimmer class="content-loader-full" />
+            <div class="col-md-7" v-if="loadingContent">
+                <div class="card">
+                    <Shimmer :style="{'min-height': '40rem'}" />
+                </div>
             </div>
             <div class="col-md-7" v-else>
                 <div class="card">
