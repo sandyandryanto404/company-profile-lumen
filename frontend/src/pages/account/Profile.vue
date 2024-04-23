@@ -15,7 +15,19 @@
                     </div>
                     <div class="card-body">
                         <form action="" method="POST" autocomplete="off">
-
+                            <div class="row mt-4 mb-2 justify-content-center align-items-center">
+                                <div class="col-md-6">
+                                    <div class="text-center">
+                                        <h5>
+                                            <small>Profile Picture</small>
+                                        </h5>
+                                        <img class="img-fluid rounded-3" :src="imgPreview" alt="..." />
+                                    </div>
+                                    <div class="mb-3 mt-3">
+                                        <input type="file" class="form-control" id="" placeholder="" name="file_image"/>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3 mt-3">
@@ -46,7 +58,7 @@
                                         <input type="text" class="form-control" id="" placeholder="" name="">
                                     </div>
                                     <div class="mb-3 mt-3">
-                                        <label for="gender" class="form-label">Country:</label>
+                                        <label for="country" class="form-label">Country:</label>
                                         <Field v-model="user.country" name="country" class="form-control" as="select">
                                             <option value="" disabled>Select a Country</option>
                                             <option v-for="country in countries" :key="country" :value="country">
@@ -105,6 +117,7 @@ export default {
             auth: localStorage.getItem("token") !== null,
             countries: [],
             user: {},
+            imgPreview:"https://dummyimage.com/150x150/343a40/6c757d",
             genders: [
                 {
                     "value": "M",

@@ -15,6 +15,7 @@ import AuthLogin from "@/pages/auth/Login.vue"
 import AuthRegister from "@/pages/auth/Register.vue"
 import AuthForgotPassword from "@/pages/auth/ForgotPassword.vue"
 import AuthResetPassword from "@/pages/auth/ResetPassword.vue"
+import Error from "@/pages/Error.vue";
 
 const routes = [
   {
@@ -107,6 +108,12 @@ const routes = [
     component: AuthResetPassword,
     meta: { layout: Layout },
   },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "Layout",
+    component: Error,
+    meta: { layout: Layout }
+  }
 ];
 
 const router = createRouter({
