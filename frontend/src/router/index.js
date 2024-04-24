@@ -16,6 +16,7 @@ import AuthRegister from "@/pages/auth/Register.vue"
 import AuthForgotPassword from "@/pages/auth/ForgotPassword.vue"
 import AuthResetPassword from "@/pages/auth/ResetPassword.vue"
 import Error from "@/pages/Error.vue";
+import Unavailable from "@/pages/Unavailable.vue";
 
 const routes = [
   {
@@ -113,6 +114,12 @@ const routes = [
     name: "Layout",
     component: Error,
     meta: { layout: Layout }
+  },
+  {
+    path: "/unavailable",
+    name: "Unavailable",
+    component: Unavailable,
+    meta: { layout: Layout },
   }
 ];
 
