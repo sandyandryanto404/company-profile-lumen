@@ -13,6 +13,26 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+$router->post('auth/login', 'AuthController@login');
+$router->post('auth/register', 'AuthController@register');
+$router->post('auth/email/forgot', 'AuthController@forgotPassword');
+$router->post('auth/email/reset/{token}', 'AuthController@resetPassword');
+$router->get('auth/confirm/{token}', 'AuthController@confirm');
+$router->get('account/profile/detail', 'AccountController@detailProfile');
+$router->post('account/profile/update', 'AccountController@updateProfile');
+$router->post('account/password/update', 'AccountController@updatePassword');
+$router->get('page/ping', 'PageController@ping');
+$router->get('page/home', 'PageController@home');
+$router->get('page/about', 'PageController@about');
+$router->get('page/service', 'PageController@service');
+$router->get('page/faq', 'PageController@faq');
+$router->get('page/contact', 'PageController@contact');
+$router->post('page/message', 'PageController@message');
+$router->post('page/subscribe', 'PageController@subscribe');
+$router->get('portfolio/list', 'PortfolioController@list');
+$router->get('portfolio/detail/{id}', 'PortfolioController@detail');
+$router->get('article/list', 'ArticleController@list');
+$router->get('article/detail/{slug}', 'ArticleController@detail');
+$router->get('article/comment/list/{id}', 'ArticleController@listComment');
+$router->post('article/comment/create/{id}', 'ArticleController@sendComment');
+$router->delete('article/comment/delete/{id}', 'ArticleController@deleteComment');
