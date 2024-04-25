@@ -73,17 +73,22 @@
     </div>
 </template>
 <script>
+    import authService from "@/service/auth"
     export default {
         methods: {
             setActive: function (menu) {
                 localStorage.setItem('active-menu', menu)
                 this.active = menu
             },
-            logout: function (){
-                let menu = 'home'
-                localStorage.setItem('active-menu', menu)
-                this.active = menu
-                this.$router.push('/') 
+            async logout(){
+               await authService.logout().then(()=> {
+                   localStorage.setItem('active-menu', 'home')
+                   localStorage.removeItem("token")
+                   this.active = 'home'
+                   setTimeout(() => { 
+                        window.location.href = "/"
+                    }, 1500)
+               })
             }
         },
         data(){

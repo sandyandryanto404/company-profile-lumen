@@ -25,7 +25,7 @@ class ArticleController extends BaseController
         return response()->json($response);
     }
 
-    public function detail($id)
+    public function detail($slug)
     {
         $response = array();
         return response()->json($response);

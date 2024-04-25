@@ -49,26 +49,52 @@
     </div>
 </template>
 <script>
-import Shimmer from "vue3-loading-shimmer";
+import Shimmer from "vue3-loading-shimmer"
+import pageService from "@/service/page"
+import accountService from "@/service/account"
 export default {
     components: {
         Shimmer
     },
     mounted() {
         document.title = 'Change Password | ' + process.env.VUE_APP_TITLE
-        let auth = this.auth
-        setTimeout(() => {
-            if(auth){
-                this.loadingContent = false
-            }else{
-                this.$router.push('/') 
-            }
-        }, 3000)
+    },
+    methods: {
+        async pingConnection(){
+            await pageService.ping().then(() => {
+                setTimeout(() => { 
+                    let auth = this.auth
+                    if(!auth){
+                        this.$router.push('/auth/login') 
+                    }else{
+                        this.loadContent()
+                    }
+                }, 2000)
+            }).catch((error) => {
+                console.log(error)
+                this.$router.push('/unavailable') 
+            })
+        },
+        async loadContent(){
+            await accountService.profileDetail().then((response) => {
+                setTimeout(() => { 
+                    this.content = response.data
+                    this.loadingContent = false
+                }, 2000)
+            }).catch((error) => {
+                console.log(error)
+                this.$router.push('/auth/login') 
+            })
+        }
+    },
+    beforeMount() {
+        this.pingConnection();
     },
     data(){
         return {
             loadingContent: true,
             loadingSubmit: false,
+            content: {},
             auth: localStorage.getItem("token") !== null
         }
     }

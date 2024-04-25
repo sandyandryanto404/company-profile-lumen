@@ -49,28 +49,46 @@
     </div>
 </template>
 <script>
-import Shimmer from "vue3-loading-shimmer"
-export default {
-    components:{
-        Shimmer
-    },
-    mounted() {
-        document.title = 'Reset Password | ' + process.env.VUE_APP_TITLE
-        let auth = this.auth
-        setTimeout(() => {
-            if(!auth){
-                this.loadingContent = false
-            }else{
-                this.$router.push('/') 
+    import Shimmer from "vue3-loading-shimmer"
+    import pageService from "@/service/page"
+    export default {
+        components:{
+            Shimmer
+        },
+        mounted() {
+            document.title = 'Reset Password | ' + process.env.VUE_APP_TITLE
+        },
+        methods: {
+             async pingConnection(){
+                await pageService.ping().then(() => {
+                    setTimeout(() => { 
+                        this.loadContent()
+                    }, 2000)
+                }).catch((error) => {
+                    console.log(error)
+                    this.$router.push('/unavailable') 
+                })
+            },
+            loadContent(){
+                let auth = this.auth
+                setTimeout(() => {
+                    if(!auth){
+                        this.loadingContent = false
+                    }else{
+                        this.$router.push('/') 
+                    }
+                }, 1500)
             }
-        }, 2000)
-    },
-    data(){
-        return {
-            loadingContent: true,
-            loadingSubmit: false,
-            auth: localStorage.getItem("token") !== null
+        },
+        beforeMount() {
+            this.pingConnection();
+        },
+        data(){
+            return {
+                loadingContent: true,
+                loadingSubmit: false,
+                auth: localStorage.getItem("token") !== null
+            }
         }
     }
-}
 </script>

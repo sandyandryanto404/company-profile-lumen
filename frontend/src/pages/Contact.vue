@@ -146,20 +146,45 @@
     </section>
 </template>
 <script>
-    import Shimmer from "vue3-loading-shimmer";
+    import Shimmer from "vue3-loading-shimmer"
+    import pageService from "@/service/page"
     export default {
         components:{
             Shimmer
         },
         mounted() {
-            document.title = 'Service | ' + process.env.VUE_APP_TITLE
-            setTimeout(() => {
-                this.loadingContent = false
-            }, 3000)
+            document.title = 'Contact | ' + process.env.VUE_APP_TITLE
+        },
+        methods: {
+            async pingConnection(){
+                await pageService.ping().then(() => {
+                    setTimeout(() => { 
+                        this.loadContent()
+                    }, 1500)
+                }).catch((error) => {
+                    console.log(error)
+                    this.$router.push('/unavailable') 
+                })
+            },
+            async loadContent(){
+               try{
+                    let { data } =  await pageService.contact()
+                    setTimeout(() => {
+                        this.content = data
+                        this.loadingContent = false
+                    }, 2000)
+               }catch(e){
+                    console.log(e)
+               }
+            }
+        },
+        beforeMount() {
+            this.pingConnection();
         },
         data() {
             return {
-                loadingContent: true
+                loadingContent: true,
+                content: {}
             }
         }
     }

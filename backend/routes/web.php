@@ -18,6 +18,8 @@ $router->post('auth/register', 'AuthController@register');
 $router->post('auth/email/forgot', 'AuthController@forgotPassword');
 $router->post('auth/email/reset/{token}', 'AuthController@resetPassword');
 $router->get('auth/confirm/{token}', 'AuthController@confirm');
+$router->post('auth/logout', 'AuthController@logout');
+$router->post('auth/refresh', 'AuthController@refresh');
 $router->get('account/profile/detail', 'AccountController@detailProfile');
 $router->post('account/profile/update', 'AccountController@updateProfile');
 $router->post('account/password/update', 'AccountController@updatePassword');

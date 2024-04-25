@@ -73,20 +73,46 @@
     </section>
 </template>
 <script>
-    import Shimmer from "vue3-loading-shimmer";
+    import Shimmer from "vue3-loading-shimmer"
+    import pageService from "@/service/page"
+    import portfolioService from "@/service/portfolio"
     export default {
         components:{
             Shimmer
         },
         mounted() {
-            document.title = 'Portfolio Details | ' + process.env.VUE_APP_TITLE
-            setTimeout(() => {
-                 this.loading = false
-            }, 3000)
+            document.title = 'Portfolio Details| ' + process.env.VUE_APP_TITLE
+        },
+        methods: {
+            async pingConnection(){
+                await pageService.ping().then(() => {
+                    setTimeout(() => { 
+                        this.loadContent()
+                    }, 1500)
+                }).catch((error) => {
+                    console.log(error)
+                    this.$router.push('/unavailable') 
+                })
+            },
+            async loadContent(){
+               try{
+                    let { data } =  await portfolioService.detail(this.$route.params.id)
+                    setTimeout(() => {
+                        this.content = data
+                        this.loading = false
+                    }, 2000)
+               }catch(e){
+                    console.log(e)
+               }
+            }
+        },
+        beforeMount() {
+            this.pingConnection();
         },
         data() {
             return {
-                loading: true
+                loading: true,
+                content: {}
             }
         }
     }

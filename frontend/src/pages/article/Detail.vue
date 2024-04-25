@@ -4,7 +4,7 @@
         <div class="container px-5 my-5">
             <div class="row gx-5">
                 <div class="col-lg-3">
-                    <div v-if="loadingContent">
+                    <div v-if="loadingArticle">
                         <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem', 'border-radius': '5px'}" />
                         <Shimmer class="mt-2" :style="{'min-height': '0.7rem'}" />
                         <Shimmer class="mt-1" :style="{'min-height': '0.7rem'}" />
@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-lg-9">
                     <!-- Post content-->
-                    <article v-if="loadingContent">
+                    <article v-if="loadingArticle">
                         <div class="mb-5 mt-1">
                             <Shimmer class="mt-1 card-img-top" :style="{'min-height': '12rem', 'border-radius': '5px'}" />
                             <Shimmer class="mt-2" :style="{'min-height': '0.7rem', 'border-radius': '5px'}" />
@@ -74,7 +74,7 @@
                         <div class="card bg-light" v-else>
                             <div class="card-body">
                                 <!-- Comment form-->
-                                <form class="mb-4"><textarea class="form-control" rows="3"
+                                <form class="mb-4" v-if="auth"><textarea class="form-control" rows="3"
                                         placeholder="Join the discussion and leave a comment!"></textarea></form>
                                 <!-- Comment with nested comments-->
                                 <div class="d-flex mb-4">
@@ -128,22 +128,61 @@
     </section>
 </template>
 <script>
-    import Shimmer from "vue3-loading-shimmer";
+    import Shimmer from "vue3-loading-shimmer"
+    import pageService from "@/service/page"
+    import articleService from "@/service/article"
     export default {
         components:{
             Shimmer
         },
         mounted() {
             document.title = 'Article Details | ' + process.env.VUE_APP_TITLE
-            setTimeout(() => {
-                this.loadingContent = false
-                this.loadingComment = false
-            }, 3000)
+        },
+        methods: {
+            async pingConnection(){
+                await pageService.ping().then(() => {
+                    setTimeout(() => { 
+                        this.loadContent()
+                    }, 1500)
+                }).catch((error) => {
+                    console.log(error)
+                    this.$router.push('/unavailable') 
+                })
+            },
+            async loadContent(){
+               try{
+                    let { data } =  await articleService.detail(this.$route.params.slug)
+                    setTimeout(() => {
+                        this.content = data
+                        this.loadingArticle = false
+                        this.loadComment(100)
+                    }, 2000)
+               }catch(e){
+                    console.log(e)
+               }
+            },
+            async loadComment(id){
+               try{
+                    let { data } =  await articleService.commentList(id)
+                    setTimeout(() => {
+                        this.comment = data
+                        this.loadingComment = false
+                    }, 2000)
+               }catch(e){
+                    console.log(e)
+               }
+            }
+        },
+        beforeMount() {
+            this.pingConnection();
         },
         data() {
             return {
-                loadingContent: true,
-                loadingComment: true
+                auth: localStorage.getItem("token") !== null,
+                loadingArticle: true,
+                loadingComment: true,
+                content: {},
+                comment: []
             }
         }
     }

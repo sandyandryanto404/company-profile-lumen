@@ -242,20 +242,50 @@
     </section>
 </template>
 <script>
-    import Shimmer from "vue3-loading-shimmer";
+    import Shimmer from "vue3-loading-shimmer"
+    import pageService from "@/service/page"
+    import articleService from "@/service/article"
     export default {
         components:{
             Shimmer
         },
         mounted() {
             document.title = 'Article | ' + process.env.VUE_APP_TITLE
-            setTimeout(() => {
-                this.loading = false
-            }, 3000)
+        },
+        methods: {
+            async pingConnection(){
+                await pageService.ping().then(() => {
+                    setTimeout(() => { 
+                        this.loadContent()
+                    }, 1500)
+                }).catch((error) => {
+                    console.log(error)
+                    this.$router.push('/unavailable') 
+                })
+            },
+            async loadContent(){
+               try{
+                    let { data } =  await articleService.list(this.params)
+                    setTimeout(() => {
+                        this.content = data
+                        this.loading = false
+                    }, 2000)
+               }catch(e){
+                    console.log(e)
+               }
+            }
+        },
+        beforeMount() {
+            this.pingConnection();
         },
         data() {
             return {
-                loading: true
+                params: {
+                    page: 1,
+                    search: ''
+                },
+                loading: true,
+                content: {}
             }
         }
     }

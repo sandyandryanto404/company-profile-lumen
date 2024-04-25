@@ -19,13 +19,14 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Laravel\Lumen\Auth\Authorizable;
 use Faker\Factory as Faker;
 use App\Models\Article;
 use App\Models\ArticleComment;
 
 
-class User extends Model implements AuthenticatableContract, AuthorizableContract
+class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {
     use Authenticatable, Authorizable, HasFactory;
 
@@ -67,6 +68,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function Comment() {
         return $this->hasMany(ArticleComment::class);
+    }
+
+    public function getJWTIdentifier(){
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims(){
+        return [];
     }
 
     public static function InitialCreate()

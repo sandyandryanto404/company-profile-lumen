@@ -93,6 +93,8 @@
 import Shimmer from "vue3-loading-shimmer";
 import { Field } from "vee-validate"
 import country from 'country-list-js'
+import pageService from "@/service/page"
+import accountService from "@/service/account"
 export default {
     components: {
         Field,
@@ -100,15 +102,38 @@ export default {
     },
     mounted() {
         document.title = 'Manage Profile | ' + process.env.VUE_APP_TITLE
-        let auth = this.auth
-        setTimeout(() => {
-            if(auth){
-                this.loadingContent = false
-                this.countries = country.names().sort()
-            }else{
-                this.$router.push('/') 
-            }
-        }, 3000)
+    },
+    methods: {
+        async pingConnection(){
+            await pageService.ping().then(() => {
+                setTimeout(() => { 
+                    let auth = this.auth
+                    if(!auth){
+                        this.$router.push('/auth/login') 
+                    }else{
+                        this.loadContent()
+                    }
+                }, 2000)
+            }).catch((error) => {
+                console.log(error)
+                this.$router.push('/unavailable') 
+            })
+        },
+        async loadContent(){
+            await accountService.profileDetail().then((response) => {
+                setTimeout(() => { 
+                    this.countries = country.names().sort()
+                    this.user = response.data
+                    this.loadingContent = false
+                }, 2000)
+            }).catch((error) => {
+                console.log(error)
+                this.$router.push('/auth/login') 
+            })
+        }
+    },
+    beforeMount() {
+        this.pingConnection();
     },
     data(){
         return {

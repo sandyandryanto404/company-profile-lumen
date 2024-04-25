@@ -323,7 +323,7 @@
     </section>
 </template>
 <script>
-    import Shimmer from "vue3-loading-shimmer";
+    import Shimmer from "vue3-loading-shimmer"
     import pageService from "@/service/page"
     export default {
         components:{
@@ -340,7 +340,7 @@
                     }, 1500)
                 }).catch((error) => {
                     console.log(error)
-                    this.$router.push('unavailable') 
+                    this.$router.push('/unavailable') 
                 })
             },
             async loadContent(){

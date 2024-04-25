@@ -15,37 +15,49 @@
                     </div>
                     <div class="card-body">
                         <h1 class="text-center mb-2 auth-icon text-primary"><i class="bi bi-person-circle"></i></h1>
-                        <form action="" method="POST" autocomplete="off">
+                        <Form @submit="submitForm" :validation-schema="valiadtionSchema" method="POST" autocomplete="off">
                             <p class="card-text fw-bold text-muted text-center mb-4">
                                 <small>Please complete the form below.</small>
                             </p>
+                            <div v-if="message" class="alert alert-danger" role="alert">
+                                {{ message }}
+                            </div>
                             <div class="input-group mb-3">
-                                <input type="email" class="form-control" placeholder="Email Address" />
+                                 <Field name="email" v-slot="{ field, errors }">
+                                    <input v-bind="field" placeholder="Email Address" type="email" :readonly="loadingSubmit" :class="errors.length == 0 ? 'form-control' : 'form-control is-invalid'">
+                                </Field>
                                 <span class="input-group-text" id="basic-addon1">
                                     <i class="bi bi-envelope"></i>
                                 </span>
+                                <ErrorMessage name="email" class="error invalid-feedback" />
                             </div>
                             <div class="input-group mb-3">
-                                <input type="password" class="form-control" placeholder="Password" />
+                                <Field name="password" v-slot="{ field, errors }">
+                                    <input v-bind="field" placeholder="Password" type="password" :readonly="loadingSubmit" :class="errors.length == 0 ? 'form-control' : 'form-control is-invalid'">
+                                </Field>
                                 <span class="input-group-text" id="basic-addon2">
                                     <i class="bi bi-key"></i>
                                 </span>
+                                 <ErrorMessage name="password" class="error invalid-feedback" />
                             </div>
                             <div class="input-group mb-3">
-                                <input type="password" class="form-control" placeholder="Confirm Password" />
+                               <Field name="password_confirm" v-slot="{ field, errors }">
+                                    <input v-bind="field" placeholder="Password Confirmation" type="password" :readonly="loading" :class="errors.length == 0 ? 'form-control' : 'form-control is-invalid'">
+                                </Field>
                                 <span class="input-group-text" id="basic-addon3">
                                     <i class="bi bi-key"></i>
                                 </span>
+                                 <ErrorMessage name="password_confirm" class="error invalid-feedback" />
                             </div>
                             <button type="submit"  class="btn btn-primary w-100" v-tooltip="'Create new account now'">
-                                <i class="bi bi-pencil me-1"></i> Register
+                                <i :class="loadingSubmit ? 'spinner-border spinner-border-sm me-1' : 'bi bi-pencil me-1'"></i> Register Now
                             </button>
                             <div class="mt-3 text-center">
                                 <router-link class="text-decoration-none" to="/auth/login" v-tooltip="'Users enter their email and password in the designated fields to access their accounts'">
                                     <i class="bi bi-arrow-left me-1"></i>Already have an account ? <strong>Log In</strong>
                                 </router-link>
                             </div>
-                        </form>
+                        </Form>
                     </div>
                 </div>
             </div>
@@ -53,28 +65,72 @@
     </div>
 </template>
 <script>
-import Shimmer from "vue3-loading-shimmer"
-export default {
-    components:{
-        Shimmer
-    },
-    mounted() {
-        document.title = 'Sign Up | ' + process.env.VUE_APP_TITLE
-        let auth = this.auth
-        setTimeout(() => {
-            if(!auth){
-                this.loadingContent = false
-            }else{
-                this.$router.push('/') 
+    import Shimmer from "vue3-loading-shimmer"
+    import pageService from "@/service/page"
+    import authService from "@/service/auth"
+    import { Form, Field, ErrorMessage } from "vee-validate"
+    import * as yup from "yup"
+    export default {
+        components:{
+            Shimmer,
+            Form,
+            Field,
+            ErrorMessage
+        },
+        mounted() {
+            document.title = 'Sign Up | ' + process.env.VUE_APP_TITLE
+        },
+        methods: {
+             async pingConnection(){
+                await pageService.ping().then(() => {
+                    setTimeout(() => { 
+                        this.loadContent()
+                    }, 2000)
+                }).catch((error) => {
+                    console.log(error)
+                    this.$router.push('/unavailable') 
+                })
+            },
+            async submitForm(user){
+                this.message = ""
+                this.loadingSubmit = true
+                await authService.register(user).then((result) => { 
+                    console.log(result)
+                }).catch((error) => {
+                    this.loadingSubmit = false
+                    this.message =
+                        (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                        error.message ||
+                        error.toString()
+                })
+            },
+            loadContent(){
+                let auth = this.auth
+                setTimeout(() => {
+                    if(!auth){
+                        this.loadingContent = false
+                    }else{
+                        this.$router.push('/') 
+                    }
+                }, 1500)
             }
-        }, 2000)
-    },
-    data(){
-        return {
-            loadingContent: true,
-            loadingSubmit: false,
-            auth: localStorage.getItem("token") !== null
+        },
+        beforeMount() {
+            this.pingConnection();
+        },
+        data(){
+            return {
+                loadingContent: true,
+                loadingSubmit: false,
+                auth: localStorage.getItem("token") !== null,
+                valiadtionSchema: yup.object().shape({
+                    email: yup.string().max(255).required("Email is required!").email("Email is invalid!"),
+                    password: yup.string().min(8).required("Password is required!"),
+                    password_confirm: yup.string().min(8).required("Password Confirmation is required!").oneOf([yup.ref('password'), null], 'Passwords must match'),
+                })
+            }
         }
     }
-}
 </script>
