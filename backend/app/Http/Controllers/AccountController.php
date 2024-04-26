@@ -15,25 +15,63 @@ namespace App\Http\Controllers;
 
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class AccountController extends BaseController
 {
     public function detailProfile()
     {
-        $response = array();
-        return response()->json($response);
+        $user = Auth::User();
+        return response()->json($user);
     }
 
     public function updateProfile(Request $request)
     {
-        $response = array();
-        return response()->json($response);
+        $user = Auth::User();
+        $email = $request->get("email");
+        $phone = $request->get("phone");
+
+        $checkUserEmail = User::where("email", $email)->where("id", "!=", $user->id)->first();
+        $checkUserPhone = User::where("phone", $phone)->where("id", "!=", $user->id)->first();
+
+        if(!is_null($checkUserEmail)){
+            return response()->json(["message"=> "The email address has already been taken.!"], 400);
+        }
+
+        if(!is_null($checkUserPhone)){
+            return response()->json(["message"=> "The phone number has already been taken.!"], 400);
+        }
+
+        $user->email = $email;
+        $user->phone = $phone;
+        $user->first_name = $request->get("first_name");
+        $user->last_name = $request->get("last_name");
+        $user->gender = $request->get("gender");
+        $user->country = $request->get("country");
+        $user->address = $request->get("address");
+        $user->about_me = $request->get("about_me");
+        $user->save();
+
+        return response()->json(["message"=> "Yor profile has been changed !!"]);
     }
 
     public function updatePassword(Request $request)
     {
-        $response = array();
-        return response()->json($response);
+        $user = Auth::User();
+        $current_password = $request->get("current_password");
+        $password = $request->get("password");
+
+        $hashedPassword = $user->password;
+        if (!Hash::check($current_password, $hashedPassword)) {
+            return response()->json(["message"=> "Incorrect current password please try again !!"], 400);
+        }
+
+        $user->password = Hash::make($password);
+        $user->save();
+
+        return response()->json(["message"=> "Your password has been reset!"]);
     }
 
 }

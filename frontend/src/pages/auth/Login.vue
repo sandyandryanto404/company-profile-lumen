@@ -43,7 +43,7 @@
                             <div class="clearfix">
                                 <div class="float-start">
                                     <div class="mb-3 form-check">
-                                        <input type="checkbox" name="remember" id="remember" class="form-check-input" />
+                                        <Field name="remember" type="checkbox" :value="true" class="form-check-input" />
                                         <label class="form-check-label" for="exampleCheck1">Remember Me</label>
                                     </div>
                                 </div>
@@ -139,6 +139,7 @@
                 valiadtionSchema: yup.object().shape({
                     email: yup.string().required("Email is required!").email("Email is invalid!"),
                     password: yup.string().required("Password is required!"),
+                    remember: yup.bool()
                 })
             }
         }

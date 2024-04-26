@@ -29,9 +29,10 @@ class AuthController extends BaseController
 
     public function login(Request $request)
     {
-        
+
         $email = $request->get("email");
         $password = $request->get("password");
+        $remember = $request->get("remember", false);
         $user = User::where("email", $email)->first();
 
         if(is_null($user)){
@@ -45,11 +46,19 @@ class AuthController extends BaseController
             $response = array("message"=> "You need to confirm your account. We have sent you an activation code, please check your email.!");
             return response()->json($response, 400);
         }
-        
+
         $hashedPassword = $user->password;
         if (!Hash::check($password, $hashedPassword)) {
             $response = array("message"=> "Incorrect password please try again !!");
             return response()->json($response, 400);
+        }
+
+        if($remember){
+            $user->remember_token = Str::random(50);
+            $user->save();
+        }else{
+            $user->remember_token = null;
+            $user->save();
         }
 
         $credentials = $request->only(['email', 'password']);
@@ -72,12 +81,11 @@ class AuthController extends BaseController
         $newUser = new User();
         $newUser->email = $email;
         $newUser->password = Hash::make($password);
-        $newUser->status = 0;
+        $newUser->status = 1;
         $newUser->confirm_token = $token;
         $newUser->save();
 
-        $response = array("message"=> "You need to confirm your account. We have sent you an activation code, please check your email.", "token"=> $token);
-        return response()->json($response);
+        return response()->json($newUser);
     }
 
     public function forgotPassword(Request $request)

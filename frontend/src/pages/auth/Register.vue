@@ -15,12 +15,15 @@
                     </div>
                     <div class="card-body">
                         <h1 class="text-center mb-2 auth-icon text-primary"><i class="bi bi-person-circle"></i></h1>
-                        <Form @submit="submitForm" :validation-schema="valiadtionSchema" method="POST" autocomplete="off">
+                        <Form  @submit="submitForm" :validation-schema="valiadtionSchema" method="POST" autocomplete="off">
                             <p class="card-text fw-bold text-muted text-center mb-4">
                                 <small>Please complete the form below.</small>
                             </p>
                             <div v-if="message" class="alert alert-danger" role="alert">
                                 {{ message }}
+                            </div>
+                            <div v-if="success" class="alert alert-success" role="alert">
+                                {{ success }}
                             </div>
                             <div class="input-group mb-3">
                                  <Field name="email" v-slot="{ field, errors }">
@@ -92,10 +95,15 @@
                 })
             },
             async submitForm(user){
+                this.success = ""
                 this.message = ""
                 this.loadingSubmit = true
-                await authService.register(user).then((result) => { 
-                    console.log(result)
+                await authService.register(user).then(() => { 
+                    this.loadingSubmit = false
+                    this.success = "Your account has been created. You can now login."
+                    setTimeout(() => {
+                        this.$router.push('/auth/login') 
+                    }, 2000)
                 }).catch((error) => {
                     this.loadingSubmit = false
                     this.message =
@@ -122,6 +130,8 @@
         },
         data(){
             return {
+                success: "",
+                message: "",
                 loadingContent: true,
                 loadingSubmit: false,
                 auth: localStorage.getItem("token") !== null,
