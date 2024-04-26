@@ -21,8 +21,20 @@
                         <Shimmer class="mt-1" :style="{'min-height': '400px', 'width': '600px', 'border-radius': '2%'}" />
                     </template>
                     <template v-else>
-                        <img class="img-fluid rounded-3 my-5" src="https://dummyimage.com/600x400/343a40/6c757d"
-                            alt="..." />
+                        
+                       <Carousel :autoplay="2000" :wrap-around="true">
+                            <Slide v-for="slide in 10" :key="slide">
+                                <div class="carousel__item text-white">
+                                    <img class="img-fluid rounded-3 mb-2" :src="'https://picsum.photos/id/'+slide+'/5000/3333'"  alt="..." />
+                                    <h6>Titlte</h6>
+                                    <p>Description</p>
+                                </div>
+                            </Slide>
+                            <template #addons>
+                                <Pagination />
+                            </template>
+                        </Carousel>
+
                     </template>
                 </div>
             </div>
@@ -323,11 +335,15 @@
     </section>
 </template>
 <script>
+    import { Carousel, Pagination, Slide } from 'vue3-carousel'
     import Shimmer from "vue3-loading-shimmer"
     import pageService from "@/service/page"
     export default {
         components:{
-            Shimmer
+            Shimmer,
+            Carousel,
+            Slide,
+            Pagination
         },
         mounted() {
             document.title = 'Home | ' + process.env.VUE_APP_TITLE

@@ -66,8 +66,17 @@ class PageController extends BaseController
         return response()->json($response);
     }
 
-    public function file($path){
-        
+    public function file($name){
+        $file_path = storage_path('files') . '/' . $name;
+        if (file_exists($file_path)) {
+            $file = file_get_contents($file_path);
+            return response($file, 200)->header('Content-Type', 'image/jpeg');
+        }else{
+            $response = array();
+            $response['success'] = false;
+            $response['message'] = "Avatar not found";
+            return response()->json($response);
+        }
     }
 
 }

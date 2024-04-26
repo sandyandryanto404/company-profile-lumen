@@ -32,6 +32,7 @@ $router->get('page/faq', 'PageController@faq');
 $router->get('page/contact', 'PageController@contact');
 $router->post('page/message', 'PageController@message');
 $router->post('page/subscribe', 'PageController@subscribe');
+$router->get('page/file/{name}', 'PageController@file');
 $router->get('portfolio/list', 'PortfolioController@list');
 $router->get('portfolio/detail/{id}', 'PortfolioController@detail');
 $router->get('article/list', 'ArticleController@list');

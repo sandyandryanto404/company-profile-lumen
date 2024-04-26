@@ -47,3 +47,7 @@ body {
 .font-error{
     font-size: 10rem;
 }
+
+:root{
+    --vc-clr-primary: #f8f9fa !important;
+}

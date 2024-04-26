@@ -46,6 +46,14 @@ class AccountController extends BaseController
         if($request->file('image')){
             $upload = $request->file('image')->move($dirUpload, $image);
             if($upload){
+
+                if(!is_null($user->image)){
+                    $currentUpload = $dirUpload."/".$user->image;
+                    if(file_exists($currentUpload)){
+                        unlink($currentUpload);
+                    }
+                }
+
                 $user->image = $image;
                 $user->save();
             }

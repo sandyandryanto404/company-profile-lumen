@@ -33,7 +33,7 @@
                                             <Shimmer :style="{'min-height': '150px', 'width': '150px', 'border-radius': '5px', 'margin':'auto' }" />
                                         </template>
                                         <template v-else>
-                                            <img class="img-fluid rounded-3" :src="imgPreview" alt="..." />
+                                            <img class="img-fluid rounded-3" width="150" :src="imgPreview" alt="..." />
                                         </template>
                                     </div>
                                     <div class="mb-3 mt-3">
@@ -140,8 +140,9 @@
                 let formData = new FormData()
                 formData.append("image", event.target.files[0]);
                 this.loadingUpload = true
-                await accountService.profileUpload(formData).then(() => { 
+                await accountService.profileUpload(formData).then((result) => { 
                     setTimeout(() => {
+                        this.imgPreview = process.env.VUE_APP_BACKEND_URL+"/page/file/"+result.data.image
                         this.loadingUpload = false
                     }, 2000)
                 }).catch((error) => {
@@ -172,8 +173,14 @@
             async loadContent(){
                 await accountService.profileDetail().then((response) => {
                     setTimeout(() => { 
+                        let user = response.data
+
+                        if(user.image){
+                            this.imgPreview = process.env.VUE_APP_BACKEND_URL+"/page/file/"+user.image
+                        }
+
                         this.countries = country.names().sort()
-                        this.user = response.data
+                        this.user = user
                         this.loadingContent = false
                     }, 2000)
                 }).catch((error) => {

@@ -14,6 +14,7 @@ import "bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "@popperjs/core";
 import "floating-vue/dist/style.css";
+import 'vue3-carousel/dist/carousel.css'
 import "./assets/style.css";
 import FloatingVue from "floating-vue";
 import { createApp } from "vue";
