@@ -14,17 +14,30 @@
                         </h4>
                     </div>
                     <div class="card-body">
-                        <form action="" method="POST" autocomplete="off">
+                        <Form @submit="submitForm" :validation-schema="valiadtionSchema" method="POST" autocomplete="off">
                             <div class="row mt-4 mb-2 justify-content-center align-items-center">
+                                <div class="col-md-12">
+                                    <div v-if="message" class="alert alert-danger" role="alert">
+                                        {{ message }}
+                                    </div>
+                                    <div v-if="success" class="alert alert-success" role="alert">
+                                        {{ success }}
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="text-center">
                                         <h5>
                                             <small>Profile Picture</small>
                                         </h5>
-                                        <img class="img-fluid rounded-3" :src="imgPreview" alt="..." />
+                                        <template v-if="loadingUpload">
+                                            <Shimmer :style="{'min-height': '150px', 'width': '150px', 'border-radius': '5px', 'margin':'auto' }" />
+                                        </template>
+                                        <template v-else>
+                                            <img class="img-fluid rounded-3" :src="imgPreview" alt="..." />
+                                        </template>
                                     </div>
                                     <div class="mb-3 mt-3">
-                                        <input type="file" class="form-control" id="" placeholder="" name="file_image"/>
+                                        <input type="file" class="form-control" @change="onChangeFile" accept="image/jpeg, image/png" id="file_image" name="file_image"/>
                                     </div>
                                 </div>
                             </div>
@@ -32,11 +45,16 @@
                                 <div class="col-md-6">
                                     <div class="mb-3 mt-3">
                                         <label for="email" class="form-label">Email:</label>
-                                        <input type="email" class="form-control" id="" placeholder="" name="">
+                                         <Field name="email"  v-model="user.email" v-slot="{ field, errors }">
+                                            <input v-bind="field" placeholder="Email Address" type="email" :readonly="loadingSubmit" :class="errors.length == 0 ? 'form-control' : 'form-control is-invalid'">
+                                        </Field>
+                                        <ErrorMessage name="email" class="error invalid-feedback" />
                                     </div>
                                     <div class="mb-3 mt-3">
                                         <label for="first_name" class="form-label">First Name:</label>
-                                        <input type="text" class="form-control" id="" placeholder="" name="">
+                                        <Field name="first_name"  v-model="user.first_name" v-slot="{ field }">
+                                            <input v-bind="field" placeholder="First Name" type="text" :readonly="loadingSubmit" class="form-control">
+                                        </Field>
                                     </div>
                                     <div class="mb-3 mt-3">
                                         <label for="gender" class="form-label">Gender:</label>
@@ -51,11 +69,16 @@
                                 <div class="col-md-6">
                                     <div class="mb-3 mt-3">
                                         <label for="phone" class="form-label">Phone Number:</label>
-                                        <input type="text" class="form-control" id="" placeholder="" name="">
+                                         <Field name="phone"  v-model="user.phone" v-slot="{ field, errors }">
+                                            <input v-bind="field" placeholder="Phone Number" type="text" :readonly="loadingSubmit" :class="errors.length == 0 ? 'form-control' : 'form-control is-invalid'">
+                                        </Field>
+                                        <ErrorMessage name="phone" class="error invalid-feedback" />
                                     </div>
                                     <div class="mb-3 mt-3">
                                         <label for="last_name" class="form-label">Last Name:</label>
-                                        <input type="text" class="form-control" id="" placeholder="" name="">
+                                         <Field name="last_name"  v-model="user.last_name" v-slot="{ field }">
+                                            <input v-bind="field" placeholder="Last Name" type="text" :readonly="loadingSubmit" class="form-control">
+                                        </Field>
                                     </div>
                                     <div class="mb-3 mt-3">
                                         <label for="country" class="form-label">Country:</label>
@@ -70,19 +93,23 @@
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label">Address:</label>
-                                <textarea rows="4" class="form-control"></textarea>
+                                <Field name="address" v-model="user.address" v-slot="{ field }">
+                                    <textarea v-bind="field" rows="4" :readonly="loadingSubmit" class="form-control"></textarea>
+                                </Field>
                             </div>
                             <div class="mb-3">
-                                <label for="about" class="form-label">About Me:</label>
-                                <textarea rows="4" class="form-control"></textarea>
+                                <label for="about_me" class="form-label">About Me:</label>
+                                <Field name="about_me" v-model="user.about_me" v-slot="{ field }">
+                                    <textarea v-bind="field" rows="4" :readonly="loadingSubmit" class="form-control"></textarea>
+                                </Field>
                             </div>
-                            <button type="submit" class="btn btn-success" v-tooltip="'Update Profile'">
-                                <i class="bi bi-save me-1"></i> Save Changed
+                            <button type="submit" :disabled="loadingSubmit" class="btn btn-success" v-tooltip="'Update Profile'">
+                                <i :class="loadingSubmit ? 'spinner-border spinner-border-sm me-1' : 'bi bi-save me-1'"></i> Save Changed
                             </button>
                             <button type="reset" class="ms-1 text-white btn btn-warning" v-tooltip="'Reset Form Data'">
                                 <i class="bi bi-arrow-clockwise me-1"></i> Reset Form
                             </button>
-                        </form>
+                        </Form>
                     </div>
                 </div>
             </div>
@@ -90,70 +117,123 @@
     </div>
 </template>
 <script>
-import Shimmer from "vue3-loading-shimmer";
-import { Field } from "vee-validate"
-import country from 'country-list-js'
-import pageService from "@/service/page"
-import accountService from "@/service/account"
-export default {
-    components: {
-        Field,
-        Shimmer
-    },
-    mounted() {
-        document.title = 'Manage Profile | ' + process.env.VUE_APP_TITLE
-    },
-    methods: {
-        async pingConnection(){
-            await pageService.ping().then(() => {
-                setTimeout(() => { 
-                    let auth = this.auth
-                    if(!auth){
-                        this.$router.push('/auth/login') 
-                    }else{
-                        this.loadContent()
-                    }
-                }, 2000)
-            }).catch((error) => {
-                console.log(error)
-                this.$router.push('/unavailable') 
-            })
+
+    import country from 'country-list-js'
+    import Shimmer from "vue3-loading-shimmer"
+    import pageService from "@/service/page"
+    import accountService from "@/service/account"
+    import { Form, Field, ErrorMessage } from "vee-validate"
+    import * as yup from "yup"
+
+    export default {
+        components: {
+            Shimmer,
+            Form,
+            Field,
+            ErrorMessage
         },
-        async loadContent(){
-            await accountService.profileDetail().then((response) => {
-                setTimeout(() => { 
-                    this.countries = country.names().sort()
-                    this.user = response.data
-                    this.loadingContent = false
-                }, 2000)
-            }).catch((error) => {
-                console.log(error)
-                this.$router.push('/auth/login') 
-            })
-        }
-    },
-    beforeMount() {
-        this.pingConnection();
-    },
-    data(){
-        return {
-            loadingContent: true,
-            loadingSubmit: false,
-            auth: localStorage.getItem("token") !== null,
-            countries: [],
-            user: {},
-            imgPreview:"https://dummyimage.com/150x150/343a40/6c757d",
-            genders: [
-                {
-                    "value": "M",
-                    "text": "Male"
-                },
-                {
-                    "value": "F",
-                    "text": "Female"
-                }
-            ],
+        mounted() {
+            document.title = 'Manage Profile | ' + process.env.VUE_APP_TITLE
+        },
+        methods: {
+            async onChangeFile(event){
+                let formData = new FormData()
+                formData.append("image", event.target.files[0]);
+                this.loadingUpload = true
+                await accountService.profileUpload(formData).then(() => { 
+                    setTimeout(() => {
+                        this.loadingUpload = false
+                    }, 2000)
+                }).catch((error) => {
+                    this.loadingUpload = false
+                    this.message =
+                        (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                        error.message ||
+                        error.toString()
+                })
+            },
+            async pingConnection(){
+                await pageService.ping().then(() => {
+                    setTimeout(() => { 
+                        let auth = this.auth
+                        if(!auth){
+                            this.$router.push('/auth/login') 
+                        }else{
+                            this.loadContent()
+                        }
+                    }, 2000)
+                }).catch((error) => {
+                    console.log(error)
+                    this.$router.push('/unavailable') 
+                })
+            },
+            async loadContent(){
+                await accountService.profileDetail().then((response) => {
+                    setTimeout(() => { 
+                        this.countries = country.names().sort()
+                        this.user = response.data
+                        this.loadingContent = false
+                    }, 2000)
+                }).catch((error) => {
+                    console.log(error)
+                    this.$router.push('/auth/login') 
+                })
+            },
+            async submitForm(user){
+                this.success = ""
+                this.message = ""
+                this.loadingSubmit = true
+                await accountService.profileUpdate(user).then((result) => { 
+                    this.loadingSubmit = false
+                    this.success = result.data.message
+                    setTimeout(() => {
+                        this.loadingContent = true
+                        this.success = ""
+                        this.message = ""
+                        this.pingConnection();
+                    }, 2000)
+                }).catch((error) => {
+                    this.loadingSubmit = false
+                    this.message =
+                        (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                        error.message ||
+                        error.toString()
+                })
+            },
+        },
+        beforeMount() {
+            this.pingConnection();
+        },
+        data(){
+            return {
+                valiadtionSchema: yup.object().shape({
+                   email: yup.string().required("Email is required!").email("Email is invalid!"),
+                   phone: yup.string().required("Phone is required!")
+                }),
+                message: "",
+                success: "",
+                loadingUpload: false,
+                loadingContent: true,
+                loadingSubmit: false,
+                auth: localStorage.getItem("token") !== null,
+                countries: [],
+                user: {},
+                imgPreview:"https://dummyimage.com/150x150/343a40/6c757d",
+                genders: [
+                    {
+                        "value": "M",
+                        "text": "Male"
+                    },
+                    {
+                        "value": "F",
+                        "text": "Female"
+                    }
+                ],
+            }
         }
     }
-}
 </script>

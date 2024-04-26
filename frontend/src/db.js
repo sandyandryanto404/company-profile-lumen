@@ -11,12 +11,21 @@
 
 import axios from "axios"
 
-export default function db() {
+export default function db(upload) {
 
     let baseURL = process.env.VUE_APP_BACKEND_URL
-    let headers = {
-        'Content-Type': 'application/json; charset=UTF-8'
+    let headers = {}
+
+    if(upload){
+        headers = {
+            'Content-Type': 'multipart/form-data'
+        }
+    }else{
+        headers = {
+            'Content-Type': 'application/json; charset=UTF-8;'
+        }
     }
+
 
     if (localStorage.getItem('token') !== null) {
         headers.Authorization = 'Bearer ' + localStorage.getItem('token')

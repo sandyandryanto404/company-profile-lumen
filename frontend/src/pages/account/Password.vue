@@ -52,7 +52,7 @@
                                 </span>
                                 <ErrorMessage name="password_confirm" class="error invalid-feedback" />
                             </div>
-                            <button type="submit"  class="btn btn-primary w-100"
+                            <button type="submit" :disabled="loadingSubmit"  class="btn btn-primary w-100"
                                 v-tooltip="'Update New Password'">
                                 <i :class="loadingSubmit ? 'spinner-border spinner-border-sm me-1' : 'bi bi-save me-1'"></i> Set Password
                             </button>

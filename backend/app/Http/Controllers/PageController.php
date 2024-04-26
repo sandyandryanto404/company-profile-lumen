@@ -66,4 +66,8 @@ class PageController extends BaseController
         return response()->json($response);
     }
 
+    public function file($path){
+        
+    }
+
 }

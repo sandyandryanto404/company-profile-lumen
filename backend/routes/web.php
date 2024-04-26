@@ -22,6 +22,7 @@ $router->post('auth/logout', 'AuthController@logout');
 $router->post('auth/refresh', 'AuthController@refresh');
 $router->get('account/profile/detail', 'AccountController@detailProfile');
 $router->post('account/profile/update', 'AccountController@updateProfile');
+$router->post('account/profile/upload', 'AccountController@uploadPicture');
 $router->post('account/password/update', 'AccountController@updatePassword');
 $router->get('page/ping', 'PageController@ping');
 $router->get('page/home', 'PageController@home');

@@ -17,14 +17,41 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use App\Models\User;
 
 class AccountController extends BaseController
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     public function detailProfile()
     {
         $user = Auth::User();
         return response()->json($user);
+    }
+
+    public function uploadPicture(Request $request)
+    {
+        $user = Auth::User();
+        $dirUpload = storage_path('files');
+
+        if(!is_dir($dirUpload)){
+            @mkdir($dirUpload);
+        }
+
+        $image = md5(Str::random(34));
+        if($request->file('image')){
+            $upload = $request->file('image')->move($dirUpload, $image);
+            if($upload){
+                $user->image = $image;
+                $user->save();
+            }
+        }   
+
+        return response()->json(["message"=> "Yor profile picture has been changed !!", "image"=> $image]);
     }
 
     public function updateProfile(Request $request)

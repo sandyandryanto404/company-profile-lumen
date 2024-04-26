@@ -23,6 +23,10 @@ export default {
 
     passwordUpdate(data){
         return db().post("account/password/update", data)
-    }
+    },
+
+    profileUpload(data){
+        return db(true).post("account/profile/upload", data)
+    },
 
 }
