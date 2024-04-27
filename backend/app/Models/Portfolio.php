@@ -68,7 +68,7 @@ class Portfolio extends Model
                     "sort"=> $i
                 ]);
 
-                for($j = 1; $j <= 4; $j++){
+                for($j = 1; $j <= 5; $j++){
                     PortfolioImage::create([
                         "portfolio_id"=> $portfolio->id,
                         "status"=> $j == 1 ? 1 : 0

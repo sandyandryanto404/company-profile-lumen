@@ -29,7 +29,7 @@
                        <Carousel :autoplay="2000" :wrap-around="true">
                             <Slide v-for="slider in content.sliders" :key="slider.id">
                                 <div class="carousel__item text-white">
-                                    <img class="img-fluid rounded-3 mb-2" :src="'https://picsum.photos/id/'+slider.id+'/5000/3333'"  alt="..." />
+                                    <img class="img-fluid rounded-3 mb-2" :src="'https://picsum.photos/id/'+(Math.floor(Math.random() * 100) + 0)+'/5000/3333'"  alt="..." />
                                     <h6>{{ slider.title }}</h6>
                                     <p>{{ slider.description }}</p>
                                 </div>
@@ -228,14 +228,14 @@
                     </div>
                 </template>
                 <template v-else>
-                    <div class="col-lg-4 mb-5" v-for="(article, index) in content.articles" :key="article.id">
+                    <div class="col-lg-4 mb-5" v-for="article in content.articles" :key="article.id">
                         <div class="card h-100 shadow border-0">
-                            <img class="card-img-top" :src="'https://picsum.photos/id/'+index+'/5000/3333'" alt="..." />
+                            <img class="card-img-top" :src="'https://picsum.photos/id/'+(Math.floor(Math.random() * 100) + 0)+'/5000/3333'" alt="..." />
                             <div class="card-body p-4">
                                 <div class="badge bg-primary bg-gradient rounded-pill mb-2" v-for="category in article.references" :key="category.id">{{ category.name }}</div>
-                                <a class="text-decoration-none link-dark stretched-link" href="#!">
+                                <router-link  class="text-decoration-none link-dark stretched-link"  :to="{ name: 'articleDetail', params: { slug: article.slug }}">
                                     <h5 class="card-title mb-3">{{ article.title }}</h5>
-                                </a>
+                                </router-link>
                                 <p class="card-text mb-0">{{ article.description }}</p>
                             </div>
                             <div class="card-footer p-4 pt-0 bg-transparent border-top-0">

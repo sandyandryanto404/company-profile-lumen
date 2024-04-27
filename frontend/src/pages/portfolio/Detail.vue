@@ -12,10 +12,8 @@
                 </div>
                 <div class="col-lg-6" v-else>
                     <div class="text-center mb-5">
-                        <h1 class="fw-bolder">Project Title</h1>
-                        <p class="lead fw-normal text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Ab similique, ducimus ut alias sit accusamus illum, asperiores deserunt dolorum
-                            quaerat qui! Ab, quisquam explicabo magni dolores unde beatae quam a.</p>
+                        <h1 class="fw-bolder">{{ content.portfolio.title }}</h1>
+                        <p class="lead fw-normal text-muted mb-0">{{ content.portfolio.description }}</p>
                     </div>
                 </div>
             </div>
@@ -32,12 +30,18 @@
                     </div>
                 </template>
                 <template v-else>
-                    <div class="col-12"><img class="img-fluid rounded-3 mb-5"
-                            src="https://dummyimage.com/1300x700/343a40/6c757d" alt="..." /></div>
-                    <div class="col-lg-6"><img class="img-fluid rounded-3 mb-5"
-                            src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
-                    <div class="col-lg-6"><img class="img-fluid rounded-3 mb-5"
-                            src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
+                    <template v-for="(image, index) in content.images" :key="image.id">
+                        <template v-if="index === 0">
+                            <div class="col-12">
+                                <img class="img-fluid rounded-3 mb-5" :src="'https://picsum.photos/id/'+(Math.floor(Math.random() * 50) + 1)+'/1300/700'" :alt="image.id" />
+                            </div>
+                        </template>
+                        <template v-else>
+                            <div class="col-lg-6">
+                                <img class="img-fluid rounded-3 mb-5" :src="'https://picsum.photos/id/'+(Math.floor(Math.random() * 50) + 1)+'/600/400'" :alt="image.id" />
+                            </div>
+                        </template>
+                    </template>
                 </template>
             </div>
             <div class="row gx-5 justify-content-center">
@@ -51,21 +55,14 @@
                             <Shimmer class="mt-1" :style="{'min-height': '1rem'}" />
                             </template>
                        <template v-else>
-                            <p class="lead fw-normal text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                            Totam deserunt architecto enim eos accusantium fugit recusandae illo iste dignissimos
-                            possimus facere ducimus odit voluptatibus exercitationem, ex laudantium illum voluptatum
-                            corporis.</p>
+                            <p class="lead fw-normal text-muted">{{ content.portfolio.description }}</p>
                        </template>
                     </div>
-                    <div class="clearfix">
-                         <router-link :to="{ name: 'portfolioList' }" class="text-decoration-none float-start">
+                    <div class="text-center">
+                         <router-link :to="{ name: 'portfolioList' }" class="text-decoration-none">
                          <i class="bi-arrow-left"></i>
                           Back To List
                         </router-link>
-                        <a class="text-decoration-none float-end" href="#!">
-                            View project
-                            <i class="bi-arrow-right"></i>
-                        </a>
                     </div>
                 </div>
             </div>

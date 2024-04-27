@@ -22,64 +22,62 @@
                         <!-- To make this form functional, sign up at-->
                         <!-- https://startbootstrap.com/solution/contact-forms-->
                         <!-- to get an API token!-->
-                        <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                        <Form id="contactForm" @submit="submitForm" :validation-schema="valiadtionSchema" method="POST" autocomplete="off">
                             <!-- Name input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="name" type="text" placeholder="Enter your name..."
-                                    data-sb-validations="required" />
+                                <Field name="name" v-slot="{ field, errors }">
+                                    <input v-bind="field" placeholder="Enter your name..." type="text" :readonly="loadingSubmit" :class="errors.length == 0 ? 'form-control' : 'form-control is-invalid'">
+                                </Field>
                                 <label for="name">Full name</label>
-                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                <ErrorMessage name="name" class="error invalid-feedback" />
                             </div>
                             <!-- Email address input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="email" type="email" placeholder="name@example.com"
-                                    data-sb-validations="required,email" />
+                                <Field name="email" v-slot="{ field, errors }">
+                                    <input v-bind="field" placeholder="name@example.com" type="email" :readonly="loadingSubmit" :class="errors.length == 0 ? 'form-control' : 'form-control is-invalid'">
+                                </Field>
                                 <label for="email">Email address</label>
-                                <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.
-                                </div>
-                                <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                <ErrorMessage name="email" class="error invalid-feedback" />
                             </div>
-                            <!-- Phone number input-->
+                            <!-- Subject input-->
                             <div class="form-floating mb-3">
-                                <input class="form-control" id="phone" type="tel" placeholder="(123) 456-7890"
-                                    data-sb-validations="required" />
-                                <label for="phone">Phone number</label>
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is
-                                    required.</div>
+                                <Field name="subject" v-slot="{ field, errors }">
+                                    <input v-bind="field" placeholder="Enter your subject..." type="text" :readonly="loadingSubmit" :class="errors.length == 0 ? 'form-control' : 'form-control is-invalid'">
+                                </Field>
+                                <label for="subject">Subject</label>
+                                <ErrorMessage name="subject" class="error invalid-feedback" />
                             </div>
                             <!-- Message input-->
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" id="message" type="text"
-                                    placeholder="Enter your message here..." style="height: 10rem"
-                                    data-sb-validations="required"></textarea>
+                                <Field name="message" v-slot="{ field, errors }">
+                                    <textarea style="height: 10rem"  placeholder="Enter your message here..."  v-bind="field" rows="4" :readonly="loadingSubmit" :class="errors.length == 0 ? 'form-control' : 'form-control is-invalid'"></textarea>
+                                </Field>
                                 <label for="message">Message</label>
-                                <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.
-                                </div>
+                                <ErrorMessage name="message" class="error invalid-feedback" />
                             </div>
-                            <!-- Submit success message-->
-                            <!---->
-                            <!-- This is what your users will see when the form-->
-                            <!-- has successfully submitted-->
-                            <div class="d-none" id="submitSuccessMessage">
+
+                            <div v-if="success" id="submitSuccessMessage" class="alert alert-success">
                                 <div class="text-center mb-3">
                                     <div class="fw-bolder">Form submission successful!</div>
                                     To activate this form, sign up at
                                     <br />
-                                    <a
-                                        href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                                    <router-link class="text-decoration-none" to="/auth/register" v-tooltip="'The process of registering for a new user account on a website.'">
+                                        <strong>{{ site }}</strong>
+                                    </router-link>
                                 </div>
                             </div>
-                            <!-- Submit error message-->
-                            <!---->
-                            <!-- This is what your users will see when there is-->
-                            <!-- an error submitting the form-->
-                            <div class="d-none" id="submitErrorMessage">
-                                <div class="text-center text-danger mb-3">Error sending message!</div>
+
+                            <div v-if="message" class="alert alert-danger">
+                                <div class="text-center text-danger mb-3">{{ message }}</div>
                             </div>
+                            
                             <!-- Submit Button-->
-                            <div class="d-grid"><button class="btn btn-primary btn-lg disabled" id="submitButton"
-                                    type="submit">Submit</button></div>
-                        </form>
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-lg" :disabled="loadingSubmit" id="submitButton" type="submit">
+                                    <i :class="loadingSubmit ? 'spinner-border spinner-border-sm me-1' : 'bi bi-envelope me-1'"></i> Send Message
+                                </button>
+                            </div>
+                        </Form>
                     </div>
                 </div>
             </div>
@@ -116,29 +114,11 @@
                     </div>
                 </template>
                 <template v-else>
-                    <div class="col">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
-                                class="bi bi-chat-dots"></i></div>
-                        <div class="h5 mb-2">Chat with us</div>
-                        <p class="text-muted mb-0">Chat live with one of our support specialists.</p>
-                    </div>
-                    <div class="col">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-people"></i>
-                        </div>
-                        <div class="h5">Ask the community</div>
-                        <p class="text-muted mb-0">Explore our community forums and communicate with other users.</p>
-                    </div>
-                    <div class="col">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
-                                class="bi bi-question-circle"></i></div>
-                        <div class="h5">Support center</div>
-                        <p class="text-muted mb-0">Browse FAQ's and support articles to find solutions.</p>
-                    </div>
-                    <div class="col">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
-                                class="bi bi-telephone"></i></div>
-                        <div class="h5">Call us</div>
-                        <p class="text-muted mb-0">Call us during normal business hours at (555) 892-9403.</p>
+                    <div class="col" v-for="service in content.services" :key="service.id">
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3">
+                            <i :class="service.icon"></i></div>
+                        <div class="h5 mb-2">{{ service.title }}</div>
+                        <p class="text-muted mb-0">{{ service.description }}</p>
                     </div>
                 </template>
             </div>
@@ -148,9 +128,14 @@
 <script>
     import Shimmer from "vue3-loading-shimmer"
     import pageService from "@/service/page"
+    import { Form, Field, ErrorMessage } from "vee-validate"
+    import * as yup from "yup"
     export default {
         components:{
-            Shimmer
+            Shimmer,
+            Form,
+            Field,
+            ErrorMessage
         },
         mounted() {
             document.title = 'Contact | ' + process.env.VUE_APP_TITLE
@@ -164,6 +149,26 @@
                 }).catch((error) => {
                     console.log(error)
                     this.$router.push('/unavailable') 
+                })
+            },
+            async submitForm(data, { resetForm }){
+                this.success = false
+                this.message = ""
+                this.loadingSubmit = true
+                await pageService.message(data).then(() => { 
+                    setTimeout(() => { 
+                        this.loadingSubmit = false
+                        this.success = true
+                        resetForm()
+                     }, 2000)
+                }).catch((error) => {
+                    this.loadingSubmit = false
+                    this.message =
+                        (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                        error.message ||
+                        error.toString()
                 })
             },
             async loadContent(){
@@ -183,8 +188,17 @@
         },
         data() {
             return {
+                site: process.env.VUE_APP_TITLE,
                 loadingContent: true,
-                content: {}
+                loadingSubmit: false,
+                success: false,
+                content: {},
+                valiadtionSchema: yup.object().shape({
+                    email: yup.string().required("Email is required!").email("Email is invalid!"),
+                    name: yup.string().required("Name is required!"),
+                    subject: yup.string().required("Subject is required!"),
+                    message: yup.string().required("Message is required!")
+                })
             }
         }
     }

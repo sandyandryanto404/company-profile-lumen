@@ -11,11 +11,8 @@
                 </div>
                 <div class="col-lg-8 col-xxl-6" v-else>
                     <div class="text-center my-5">
-                        <h1 class="fw-bolder mb-3">Our mission is to make building websites easier for everyone.</h1>
-                        <p class="lead fw-normal text-muted mb-4">Start Bootstrap was built on the idea that quality,
-                            functional website templates and themes should be available to everyone. Use our open
-                            source, free products, or support us by purchasing one of our premium products or services.
-                        </p>
+                        <h1 class="fw-bolder mb-3">{{ content.header.title }}</h1>
+                        <p class="lead fw-normal text-muted mb-4">{{ content.header.description }}</p>
                         <a class="btn btn-primary btn-lg" href="#scroll-target">Read our story</a>
                     </div>
                 </div>
@@ -83,33 +80,10 @@
                     </template>
                     <template v-else>
                         <div class="row gx-5 row-cols-1 row-cols-md-2">
-                            <div class="col mb-5 h-100">
-                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
-                                        class="bi bi-collection"></i></div>
-                                <h2 class="h5">Featured title</h2>
-                                <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here
-                                    is just a bit more text.</p>
-                            </div>
-                            <div class="col mb-5 h-100">
-                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
-                                        class="bi bi-building"></i></div>
-                                <h2 class="h5">Featured title</h2>
-                                <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here
-                                    is just a bit more text.</p>
-                            </div>
-                            <div class="col mb-5 mb-md-0 h-100">
-                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
-                                        class="bi bi-toggles2"></i></div>
-                                <h2 class="h5">Featured title</h2>
-                                <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here
-                                    is just a bit more text.</p>
-                            </div>
-                            <div class="col h-100">
-                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
-                                        class="bi bi-toggles2"></i></div>
-                                <h2 class="h5">Featured title</h2>
-                                <p class="mb-0">Paragraph of text beneath the heading to explain the heading. Here
-                                    is just a bit more text.</p>
+                            <div class="col mb-5 h-100" v-for="service in content.services" :key="service.id">
+                                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i :class="service.icon"></i></div>
+                                <h2 class="h5">{{ service.title }}</h2>
+                                <p class="mb-0">{{ service.description }}</p>
                             </div>
                         </div>
                     </template>
@@ -163,36 +137,11 @@
                     </div>
                 </template>
                 <template v-else>
-                    <div class="col mb-5 mb-5 mb-xl-0">
-                        <div class="text-center">
-                            <img class="img-fluid rounded-circle mb-4 px-4"
-                                src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
-                            <h5 class="fw-bolder">Ibbie Eckart</h5>
-                            <div class="fst-italic text-muted">Founder &amp; CEO</div>
-                        </div>
-                    </div>
-                    <div class="col mb-5 mb-5 mb-xl-0">
-                        <div class="text-center">
-                            <img class="img-fluid rounded-circle mb-4 px-4"
-                                src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
-                            <h5 class="fw-bolder">Arden Vasek</h5>
-                            <div class="fst-italic text-muted">CFO</div>
-                        </div>
-                    </div>
-                    <div class="col mb-5 mb-5 mb-sm-0">
-                        <div class="text-center">
-                            <img class="img-fluid rounded-circle mb-4 px-4"
-                                src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
-                            <h5 class="fw-bolder">Toribio Nerthus</h5>
-                            <div class="fst-italic text-muted">Operations Manager</div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="text-center">
-                            <img class="img-fluid rounded-circle mb-4 px-4"
-                                src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
-                            <h5 class="fw-bolder">Malvina Cilla</h5>
-                            <div class="fst-italic text-muted">CTO</div>
+                    <div class="col mb-5 mb-5 mb-xl-0" v-for="customer in content.customers" :key="customer.id">
+                        <div class="text-center mb-5">
+                            <img class="img-fluid rounded-circle mb-4 px-4" :src="'https://picsum.photos/id/'+(Math.floor(Math.random() * 100) + 0)+'/150/150'" alt="..." />
+                            <h5 class="fw-bolder">{{ customer.name }}</h5>
+                            <div class="fst-italic text-muted">{{ customer.address }}</div>
                         </div>
                     </div>
                 </template>
@@ -249,79 +198,19 @@
                     </div>
                 </template>
                 <template v-else>
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-4 mb-5" v-for="testimonial in content.testimonials" :key="testimonial.id">
                         <div class="card border-0 border-bottom border-primary shadow-sm">
                             <div class="card-body p-4 p-xxl-5">
                                 <figure>
                                     <img class="img-fluid rounded rounded-circle mb-4 border border-5" loading="lazy"
-                                        src="https://dummyimage.com/150x150/ced4da/6c757d" alt="">
+                                        :src="'https://picsum.photos/id/'+(Math.floor(Math.random() * 50) + 1)+'/150/150'" alt="">
                                     <figcaption>
                                         <div class="mb-3 mt-2">
-                                            <i class="bi bi-star text-warning me-2"></i>
-                                            <i class="bi bi-star text-warning me-2"></i>
-                                            <i class="bi bi-star text-warning me-2"></i>
-                                            <i class="bi bi-star text-warning me-2"></i>
-                                            <i class="bi bi-star text-warning me-2"></i>
-                                            <i class="bi bi-star text-warning me-2"></i>
+                                            <i class="bi bi-star text-warning me-2" v-for="idx in (Math.floor(Math.random() * 20) + 1)" :key="idx"></i>
                                         </div>
-                                        <blockquote class="bsb-blockquote-icon mb-4">Nam ultricies, ex lacinia dapibus
-                                            faucibus, sapien ipsum euismod massa, at aliquet erat turpis quis diam. Class
-                                            aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                            himenaeos.</blockquote>
-                                        <h4 class="mb-2">Luna John</h4>
-                                        <h5 class="fs-6 text-secondary mb-0">UX Designer</h5>
-                                    </figcaption>
-                                </figure>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="card border-0 border-bottom border-primary shadow-sm">
-                            <div class="card-body p-4 p-xxl-5">
-                                <figure>
-                                    <img class="img-fluid rounded rounded-circle mb-4 border border-5" loading="lazy"
-                                        src="https://dummyimage.com/150x150/ced4da/6c757d" alt="">
-                                    <figcaption>
-                                        <div class="mb-3 mt-2">
-                                            <i class="bi bi-star text-warning me-2"></i>
-                                            <i class="bi bi-star text-warning me-2"></i>
-                                            <i class="bi bi-star text-warning me-2"></i>
-                                            <i class="bi bi-star text-warning me-2"></i>
-                                            <i class="bi bi-star text-warning me-2"></i>
-                                            <i class="bi bi-star text-warning me-2"></i>
-                                        </div>
-                                        <blockquote class="bsb-blockquote-icon mb-4">Nam ultricies, ex lacinia dapibus
-                                            faucibus, sapien ipsum euismod massa, at aliquet erat turpis quis diam. Class
-                                            aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                            himenaeos.</blockquote>
-                                        <h4 class="mb-2">Mark Smith</h4>
-                                        <h5 class="fs-6 text-secondary mb-0">Marketing Specialist</h5>
-                                    </figcaption>
-                                </figure>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="card border-0 border-bottom border-primary shadow-sm">
-                            <div class="card-body p-4 p-xxl-5">
-                                <figure>
-                                    <img class="img-fluid rounded rounded-circle mb-4 border border-5" loading="lazy"
-                                        src="https://dummyimage.com/150x150/ced4da/6c757d" alt="">
-                                    <figcaption>
-                                        <div class="mb-3 mt-2">
-                                            <i class="bi bi-star text-warning me-2"></i>
-                                            <i class="bi bi-star text-warning me-2"></i>
-                                            <i class="bi bi-star text-warning me-2"></i>
-                                            <i class="bi bi-star text-warning me-2"></i>
-                                            <i class="bi bi-star text-warning me-2"></i>
-                                            <i class="bi bi-star text-warning me-2"></i>
-                                        </div>
-                                        <blockquote class="bsb-blockquote-icon mb-4">Nam ultricies, ex lacinia dapibus
-                                            faucibus, sapien ipsum euismod massa, at aliquet erat turpis quis diam. Class
-                                            aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                            himenaeos.</blockquote>
-                                        <h4 class="mb-2">Luke Reeves</h4>
-                                        <h5 class="fs-6 text-secondary mb-0">Sales Manager</h5>
+                                        <blockquote class="bsb-blockquote-icon mb-4">{{ testimonial.quote }}</blockquote>
+                                        <h4 class="mb-2">{{ testimonial.name }}</h4>
+                                        <h5 class="fs-6 text-secondary mb-0">{{ testimonial.position }}</h5>
                                     </figcaption>
                                 </figure>
                             </div>
