@@ -38,7 +38,6 @@ class Slider extends Model
             {
                 $faker = Faker::create();
                 self::create([
-                    "image"=> "slider".$i.".jpg",
                     "title"=> $faker->sentence(5),
                     "description"=> $faker->text,
                     "status"=> 1,

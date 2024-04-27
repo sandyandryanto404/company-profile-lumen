@@ -174,7 +174,7 @@ return new class extends Migration
         Schema::create('portfolios_images', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('portfolio_id')->index();
-            $table->text('image');
+            $table->text('image')->nullable();
             $table->tinyInteger('status')->default(0)->index();
             $table->timestamps();
             $table->foreign('portfolio_id')->references('id')->on('portfolios')->onDelete('no action')->onUpdate('no action');

@@ -49,7 +49,6 @@ class Customer extends Model
             {
                 $faker = Faker::create();
                 self::create([
-                    "image"=> "customer".$i.".jpg",
                     "name"=> $faker->company,
                     "email"=> $faker->email,
                     "phone"=> $faker->phoneNumber,

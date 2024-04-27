@@ -47,7 +47,6 @@ class Testimonial extends Model
                 $faker = Faker::create();
                 self::create([
                     "customer_id"=> $customer->id,
-                    "image"=> "testimonial".$sort.".jpg",
                     "name"=> $faker->name,
                     "position"=> $faker->jobTitle,
                     "quote"=> $faker->text,

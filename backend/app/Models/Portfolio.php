@@ -71,7 +71,6 @@ class Portfolio extends Model
                 for($j = 1; $j <= 4; $j++){
                     PortfolioImage::create([
                         "portfolio_id"=> $portfolio->id,
-                        "image"=> "portfolio".$j.".jpg",
                         "status"=> $j == 1 ? 1 : 0
                     ]);
                 }

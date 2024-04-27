@@ -61,7 +61,6 @@ class Article extends Model
                 $slug = MyHelper::strToSlug($title);
                 $article = self::create([
                     "user_id"=> $user->id,
-                    "image"=> "article".$number.".jpg",
                     "title"=> $title,
                     "slug"=> $slug,
                     "description"=> $faker->sentence(20),
@@ -93,5 +92,6 @@ class Article extends Model
             }
         }
     }
+
 
 }

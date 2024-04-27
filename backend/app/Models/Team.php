@@ -45,7 +45,6 @@ class Team extends Model
             {
                 $faker = Faker::create();
                 self::create([
-                    "image"=> "team".$i.".jpg",
                     "name"=> $faker->name,
                     "email"=> $faker->email,
                     "phone"=> $faker->phoneNumber,

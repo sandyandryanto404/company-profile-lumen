@@ -15,6 +15,11 @@ namespace App\Http\Controllers;
 
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use Faker\Factory as Faker;
+use App\Models\Slider;
+use App\Models\Service;
+use App\Models\Testimonial;
+use App\Models\Article;
 
 class PageController extends BaseController
 {
@@ -26,7 +31,17 @@ class PageController extends BaseController
 
     public function home()
     {
-        $response = array();
+        $faker = Faker::create();
+        $response = array(
+            "header"=> array(
+                "title"=> $faker->sentence(5),
+                "description"=> $faker->sentence(20)
+            ),
+            "sliders"=> Slider::select(["id","title", "description"])->where("status", 1)->orderBy("sort")->get(),
+            "services"=> Service::select(["id", "icon", "title", "description"])->where("status", 1)->take(4)->inRandomOrder()->get(),
+            "testimonial"=> Testimonial::select(["name", "position", "quote", "customer_id"])->with('customer')->where("status", 1)->inRandomOrder()->first(),
+            "articles"=> Article::where("status", 1)->with('user')->with('references')->take(3)->inRandomOrder()->get(),
+        );
         return response()->json($response);
     }
 
