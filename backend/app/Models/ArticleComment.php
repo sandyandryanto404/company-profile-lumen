@@ -36,4 +36,27 @@ class ArticleComment extends Model
         return $this->belongsTo(Article::class, 'article_id');
     }
 
+    public static function buildComment($article_id)
+    {
+        $elements = self::where("article_id", $article_id)->with('user')->orderBy("id", "DESC")->get()->toArray();
+        return self::buildTree($elements, 0);
+    }
+
+    private static function buildTree(array &$elements, $parentId = 0) {
+        $branch = array();
+        foreach ($elements as $element) {
+            if ($element['parent_id'] == $parentId) {
+                $children = self::buildTree($elements, $element['id']);
+                if ($children) {
+                    $element['children'] = $children;
+                }else{
+                    $element['children'] = [];
+                }
+                $branch[] = $element;
+                unset($elements[$element['id']]);
+            }
+        }
+        return $branch;
+    }
+
 }

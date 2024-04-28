@@ -29,8 +29,4 @@ export default {
         return db().post("article/comment/create/"+id, data)
     },
 
-    commentDelete(id){
-        return db().delete("article/comment/delete/"+id)
-    }
-
 }

@@ -39,4 +39,3 @@ $router->get('article/list', 'ArticleController@list');
 $router->get('article/detail/{slug}', 'ArticleController@detail');
 $router->get('article/comment/list/{id}', 'ArticleController@listComment');
 $router->post('article/comment/create/{id}', 'ArticleController@sendComment');
-$router->delete('article/comment/delete/{id}', 'ArticleController@deleteComment');
