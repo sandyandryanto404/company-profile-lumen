@@ -13,17 +13,14 @@
 # Preview
 
 <img src="screenshots/home.png">
-<br/>
-<img src="screenshots/article.png">
-</br>
-<img src="screenshots/service.png">
+
 
 # Features
 
 <ol type="1">
 	<li>
 		Authentication
-		<ol>
+		<ol type="1">
 			<li>Login</li>
 			<li>Register</li>
 			<li>Forgot Password</li>
@@ -32,14 +29,14 @@
 	</li>
 	<li>
 		Account Management
-		<ol>
+		<ol type="1">
 			<li>Change Password</li>
 			<li>Manage Profile</li>
 		</ol>
 	</li>
 	<li>
 		General Page
-		<ol>
+		<ol type="1">
 			<li>Home</li>
 			<li>About</li>
 			<li>Service</li>
@@ -59,7 +56,7 @@
 	<li>Git 2.4</li>
 	<li>
 		Backend Technologies
-		<ol>
+		<ol type="1">
 			<li>MySQL 5.7 / Maria DB 11.3</li>
 			<li>PHP 8.3</li>
 			<li>Composer 2.7</li>
@@ -68,7 +65,7 @@
 	</li>
 	<li>
 		Frontend Technologies
-		<ol>
+		<ol type="1">
 			<li>CSS3</li>
 			<li>HTML5</li>
 			<li>Bootstrap 5</li>
@@ -85,12 +82,7 @@ git clone https://github.com/sandyandryanto404/company-profile-lumen.git
 cd company-profile-lumen
 ```
 
-#### 2. Install backend dependencies 
-<strong>
-	<small>
-		Move to directory company-profile-lumen/backend
-	</small>
-</strong>
+#### 2. Install backend dependencies, please move to directory company-profile-lumen/backend
 ```shell
 composer install
 ```
@@ -115,12 +107,7 @@ php artisan jwt:secret
 php -S 0.0.0.0:8000 -t public
 ```
 
-#### 5. Install frontend dependencies 
-<strong>
-	<small>
-		Move to directory company-profile-lumen/frontend
-	</small>
-</strong>
+#### 5. Install frontend dependencies, please move to directory company-profile-lumen/frontend
 ```shell
 npm install
 ```
@@ -140,3 +127,8 @@ npm run serve
 ```
 
 #### 8. Access application by entering [https://localhost:8080](https://localhost:8080) in the browser.
+
+<br/>
+<img src="screenshots/article.png">
+</br>
+<img src="screenshots/service.png">
