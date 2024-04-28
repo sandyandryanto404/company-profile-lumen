@@ -132,3 +132,22 @@ npm run serve
 <img src="screenshots/article.png">
 </br>
 <img src="screenshots/service.png">
+
+#### 9. Developer Contact
+<ul>
+	<li>
+		<strong>Linked In</strong> <a target="_blank" href="https://www.linkedin.com/in/sand404/">https://www.linkedin.com/in/sand404/</a>
+	</li>
+	<li>
+		<strong>Facebook</strong> <a target="_blank" href="https://www.facebook.com/">https://www.facebook.com/</a>
+	</li>
+	<li>
+		<strong>Instagram</strong> <a target="_blank" href="https://www.instagram.com/sandyandryanto/">https://www.instagram.com/sandyandryanto/</a>
+	</li>
+	<li>
+		<strong>Telegram</strong> <a target="_blank" href="https://t.me/sand404">https://t.me/sand404</a>
+	</li>
+	<li>
+		<strong>Gmail</strong> <a  href="mailto:sandy.andryanto404@gmail.com">sandy.andryanto404@gmail.com</a>
+	</li>
+</ul>
