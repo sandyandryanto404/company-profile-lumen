@@ -139,7 +139,7 @@ npm run serve
 		<strong>Linked In</strong> <a target="_blank" href="https://www.linkedin.com/in/sand404/">https://www.linkedin.com/in/sand404/</a>
 	</li>
 	<li>
-		<strong>Facebook</strong> <a target="_blank" href="https://www.facebook.com/">https://www.facebook.com/</a>
+		<strong>Facebook</strong> <a target="_blank" href="https://www.facebook.com/sandyandryantz">https://www.facebook.com/sandyandryantz</a>
 	</li>
 	<li>
 		<strong>Instagram</strong> <a target="_blank" href="https://www.instagram.com/sandyandryanto/">https://www.instagram.com/sandyandryanto/</a>
